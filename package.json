@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^5.4.10"
+  },
+  "dependencies": {
+    "commitizen": "^4.3.1"
   }
 }
