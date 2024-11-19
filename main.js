@@ -61,6 +61,7 @@ const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = document.querySelector(".hippoYes");
 const hippoNo = document.querySelector(".hippoNo");
 const score = document.querySelector(".score").firstElementChild;
+let previousHippo = null;
 
 console.log("SCORE", score);
 // const sampleHtml =
@@ -86,7 +87,9 @@ function handleMouseDown(e) {
 
   if (e.target.tagName === "H1") {
     hippoDown = true;
-    hippo.style.display = "block"; //вопросики
+    if (previousHippo === "yes") hippoYes.style.display = "none";
+    if (previousHippo === "no") hippoNo.style.display = "none";
+    hippo.style.display = "block";
 
     if (!e.target.classList.contains("duplicate")) {
       target = e.target.cloneNode(true);
@@ -143,11 +146,13 @@ function includesTarget(coord) {
 
     if (checkFood(targetValue)) {
       hippoYes.style.display = "block";
+      previousHippo = "yes";
       let [text, value] = score.textContent.split(" ");
       score.textContent = `${text} ${Number(value) + 10}`;
       // busket.style.backgroundColor = "green";
     } else {
       hippoNo.style.display = "block";
+      previousHippo = "no";
       // busket.style.backgroundColor = "red";
     }
     // busket.style.backgroundСolor = '#535bf2';
