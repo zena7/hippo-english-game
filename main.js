@@ -1,6 +1,5 @@
 import "normalize.css";
 import "./style.css";
-import { setupCounter } from "./counter.js";
 
 const mixed = [
   "Рыба",
@@ -61,6 +60,9 @@ const list = document.querySelector(".food");
 const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = document.querySelector(".hippoYes");
 const hippoNo = document.querySelector(".hippoNo");
+const score = document.querySelector(".score").firstElementChild;
+
+console.log("SCORE", score);
 // const sampleHtml =
 mixed.forEach((item) => {
   list.insertAdjacentHTML(
@@ -80,21 +82,24 @@ let target = null;
 function handleMouseDown(e) {
   // busket.style.backgroundColor = "white";
   // console.log(e.target.tagName)
-  hippo.style.display = "block";
+  e.preventDefault();
+
   if (e.target.tagName === "H1") {
-    target = e.target.cloneNode(true);
-    console.log("T", target, "parentNode:", e.target.parentNode);
-
-    e.target.parentNode.classList.toggle("liView");
-    target.classList.add("liView");
-
-    e.preventDefault();
     hippoDown = true;
-    e.target.style.visibility = "hidden";
-    document.body.append(target);
-    target.style.padding = "0.5rem 0.5rem";
-    target.style.position = "absolute";
+    hippo.style.display = "block"; //вопросики
 
+    if (!e.target.classList.contains("duplicate")) {
+      target = e.target.cloneNode(true);
+      target.classList.add("duplicate");
+      e.target.parentNode.classList.toggle("liView");
+      target.classList.add("liView");
+      e.target.style.visibility = "hidden";
+      document.body.append(target);
+      target.style.padding = "0.5rem 0.5rem";
+      target.style.position = "absolute";
+    } else {
+      target = e.target;
+    }
     document.addEventListener("mousemove", handleMove);
     document.addEventListener("mouseup", handleUp, { once: true });
   }
@@ -138,6 +143,8 @@ function includesTarget(coord) {
 
     if (checkFood(targetValue)) {
       hippoYes.style.display = "block";
+      let [text, value] = score.textContent.split(" ");
+      score.textContent = `${text} ${Number(value) + 10}`;
       // busket.style.backgroundColor = "green";
     } else {
       hippoNo.style.display = "block";
