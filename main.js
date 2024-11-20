@@ -1,60 +1,7 @@
 import "normalize.css";
 import "./style.css";
 
-const mixed = [
-  "Рыба",
-  "Трава",
-  "Орехи",
-  "Водяные растения",
-  "Сено",
-  "Листья",
-  "Фрукты (яблоки, арбузы, бананы)",
-  "Огурцы",
-  "Морковь",
-  "Конфеты",
-  "Капуста",
-  "Свёкла",
-  "Лук",
-  "Чеснок",
-  "Тыква",
-  "Брокколи",
-  "Мясо",
-  "Цитрусовые (апельсины, лимоны, грейпфруты)",
-  "Острая пища",
-  "Шоколад",
-  "Кофе",
-  "Чай",
-  "Картофель",
-  "Грибы",
-];
-
-const mixedEng = [
-  "Fish",
-  "Grass",
-  "Nuts",
-  "Aquatic plants",
-  "Hay",
-  "Leaves",
-  "Fruits (apples, watermelons, bananas)",
-  "Cucumbers",
-  "Carrots",
-  "Candies",
-  "Cabbage",
-  "Beets",
-  "Onion",
-  "Garlic",
-  "Pumpkin",
-  "Broccoli",
-  "Meat",
-  "Citrus fruits (oranges, lemons, grapefruits)",
-  "Spicy food",
-  "Chocolate",
-  "Coffee",
-  "Tea",
-  "Potatoes",
-  "Mushrooms",
-];
-
+let currentLanguage = "Ru";
 const busket = document.querySelector(".busket");
 const list = document.querySelector(".food");
 const hippo = document.querySelectorAll(".hippo")[0];
@@ -62,16 +9,10 @@ const hippoYes = document.querySelector(".hippoYes");
 const hippoNo = document.querySelector(".hippoNo");
 const score = document.querySelector(".score").firstElementChild;
 let previousHippo = null;
+const audioYes = new Audio("./assets/audio/soundYes.mp3");
+const audioNo = new Audio("./assets/audio/soundNo.mp3");
 
-console.log("SCORE", score);
-// const sampleHtml =
-mixed.forEach((item) => {
-  list.insertAdjacentHTML(
-    "beforeend",
-    `<li class="liView"><h1 data-species="${item}" >${item}</h1></li>`
-  );
-});
-
+updateFoodList(currentLanguage);
 console.dir(busket.getBoundingClientRect());
 
 let hippoDown = false;
@@ -120,8 +61,6 @@ function handleMove(e) {
 function handleUp(e) {
   hippoDown = false;
   coordinate = `${e.pageX},${e.pageY}`;
-  // console.log("WIDTH", target.offsetWidth)
-  // console.log('UP', coordinate, );
   includesTarget(coordinate);
   coordinate = "";
 
@@ -149,13 +88,13 @@ function includesTarget(coord) {
       previousHippo = "yes";
       let [text, value] = score.textContent.split(" ");
       score.textContent = `${text} ${Number(value) + 10}`;
+      audioYes.play();
       // busket.style.backgroundColor = "green";
     } else {
       hippoNo.style.display = "block";
       previousHippo = "no";
-      // busket.style.backgroundColor = "red";
+      audioNo.play();
     }
-    // busket.style.backgroundСolor = '#535bf2';
   }
 }
 
@@ -178,13 +117,10 @@ function checkFood(food) {
     "Мясо",
     "Рыба",
     "Цитрусовые (апельсины, лимоны, грейпфруты)",
-    "Острая пища",
-    "Шоколад",
-    "Конфеты",
-    "Кофе",
     "Чай",
     "Картофель",
     "Грибы",
+    "Конфеты",
     "Чеснок",
     "Лук",
     "Орехи",
@@ -211,7 +147,6 @@ function checkFood(food) {
     "Spicy food",
     "Chocolate",
     "Candies",
-    "Coffee",
     "Tea",
     "Potatoes",
     "Mushrooms",
@@ -220,16 +155,9 @@ function checkFood(food) {
     "Nuts",
   ];
 
-  console.log(
-    food,
-    typeof food,
-    food.length,
-    allowedFoods.includes(food),
-    allowedFoods.includes("Водяные растения"),
-    "Трава".length
+  return (currentLanguage === "Ru" ? allowedFoods : allowedFoodsEng).includes(
+    food
   );
-
-  return allowedFoods.includes(food);
 }
 
 function hippoIconAnination() {
@@ -238,3 +166,72 @@ function hippoIconAnination() {
 }
 
 hippoIconAnination();
+
+const buttonLang = document.querySelector(".buttonLang");
+buttonLang.addEventListener("click", switchLanguage);
+
+function switchLanguage() {
+  const lang = document.querySelector(".language");
+  currentLanguage = lang.textContent === "Ru" ? "En" : "Ru";
+  lang.textContent = currentLanguage;
+  console.log("IN HANDLER", currentLanguage);
+  updateFoodList(currentLanguage);
+}
+
+function updateFoodList(lang) {
+  const mixed = [
+    "Рыба",
+    "Трава",
+    "Орехи",
+    "Водяные растения",
+    "Сено",
+    "Листья",
+    "Фрукты (яблоки, арбузы, бананы)",
+    "Огурцы",
+    "Морковь",
+    "Конфеты",
+    "Капуста",
+    "Свёкла",
+    "Лук",
+    "Чеснок",
+    "Тыква",
+    "Брокколи",
+    "Мясо",
+    "Цитрусовые (апельсины, лимоны, грейпфруты)",
+    "Чай",
+    "Картофель",
+    "Грибы",
+  ];
+  const mixedEng = [
+    "Fish",
+    "Grass",
+    "Nuts",
+    "Aquatic plants",
+    "Hay",
+    "Leaves",
+    "Fruits (apples, watermelons, bananas)",
+    "Cucumbers",
+    "Carrots",
+    "Candies",
+    "Cabbage",
+    "Beets",
+    "Onion",
+    "Garlic",
+    "Pumpkin",
+    "Broccoli",
+    "Meat",
+    "Citrus fruits (oranges, lemons, grapefruits)",
+    "Tea",
+    "Potatoes",
+    "Mushrooms",
+  ];
+
+  let food = lang === "Ru" ? mixed : mixedEng;
+  list.innerHTML = "";
+  food.forEach((item) => {
+    list.insertAdjacentHTML(
+      "beforeend",
+      `<li class="liView"><h1 data-species="${item}" >${item}</h1></li>`
+    );
+  });
+}
