@@ -1,75 +1,18 @@
+import "normalize.css";
 import "./style.css";
-import javascriptLogo from "./javascript.svg";
-import viteLogo from "/vite.svg";
-import { setupCounter } from "./counter.js";
 
-const mixed = [
-  "Рыба",
-  "Трава",
-  "Орехи",
-  "Водяные растения",
-  "Сено",
-  "Листья",
-  "Фрукты (яблоки, арбузы, бананы)",
-  "Огурцы",
-  "Морковь",
-  "Конфеты",
-  "Капуста",
-  "Свёкла",
-  "Лук",
-  "Чеснок",
-  "Тыква",
-  "Брокколи",
-  "Мясо",
-  "Цитрусовые (апельсины, лимоны, грейпфруты)",
-  "Острая пища",
-  "Шоколад",
-  "Кофе",
-  "Чай",
-  "Картофель",
-  "Грибы",
-];
-
-const mixedEng = [
-  "Fish",
-  "Grass",
-  "Nuts",
-  "Aquatic plants",
-  "Hay",
-  "Leaves",
-  "Fruits (apples, watermelons, bananas)",
-  "Cucumbers",
-  "Carrots",
-  "Candies",
-  "Cabbage",
-  "Beets",
-  "Onion",
-  "Garlic",
-  "Pumpkin",
-  "Broccoli",
-  "Meat",
-  "Citrus fruits (oranges, lemons, grapefruits)",
-  "Spicy food",
-  "Chocolate",
-  "Coffee",
-  "Tea",
-  "Potatoes",
-  "Mushrooms",
-];
-
+let currentLanguage = "Ru";
 const busket = document.querySelector(".busket");
 const list = document.querySelector(".food");
 const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = document.querySelector(".hippoYes");
 const hippoNo = document.querySelector(".hippoNo");
-// const sampleHtml =
-mixed.forEach((item) => {
-  list.insertAdjacentHTML(
-    "beforeend",
-    `<li class="liView"><h1 data-species="${item}" >${item}</h1></li>`
-  );
-});
+const score = document.querySelector(".score").firstElementChild;
+let previousHippo = null;
+const audioYes = new Audio("./assets/audio/soundYes.mp3");
+const audioNo = new Audio("./assets/audio/soundNo.mp3");
 
+updateFoodList(currentLanguage);
 console.dir(busket.getBoundingClientRect());
 
 let hippoDown = false;
@@ -81,21 +24,26 @@ let target = null;
 function handleMouseDown(e) {
   // busket.style.backgroundColor = "white";
   // console.log(e.target.tagName)
-  hippo.style.display = "block";
+  e.preventDefault();
+
   if (e.target.tagName === "H1") {
-    target = e.target.cloneNode(true);
-    console.log("T", target, "parentNode:", e.target.parentNode);
-
-    e.target.parentNode.classList.toggle("liView");
-    target.classList.add("liView");
-
-    e.preventDefault();
     hippoDown = true;
-    e.target.style.visibility = "hidden";
-    document.body.append(target);
-    target.style.padding = "0.5rem 0.5rem";
-    target.style.position = "absolute";
+    if (previousHippo === "yes") hippoYes.style.display = "none";
+    if (previousHippo === "no") hippoNo.style.display = "none";
+    hippo.style.display = "block";
 
+    if (!e.target.classList.contains("duplicate")) {
+      target = e.target.cloneNode(true);
+      target.classList.add("duplicate");
+      e.target.parentNode.classList.toggle("liView");
+      target.classList.add("liView");
+      e.target.style.visibility = "hidden";
+      document.body.append(target);
+      target.style.padding = "0.5rem 0.5rem";
+      target.style.position = "absolute";
+    } else {
+      target = e.target;
+    }
     document.addEventListener("mousemove", handleMove);
     document.addEventListener("mouseup", handleUp, { once: true });
   }
@@ -113,8 +61,6 @@ function handleMove(e) {
 function handleUp(e) {
   hippoDown = false;
   coordinate = `${e.pageX},${e.pageY}`;
-  // console.log("WIDTH", target.offsetWidth)
-  // console.log('UP', coordinate, );
   includesTarget(coordinate);
   coordinate = "";
 
@@ -139,12 +85,16 @@ function includesTarget(coord) {
 
     if (checkFood(targetValue)) {
       hippoYes.style.display = "block";
+      previousHippo = "yes";
+      let [text, value] = score.textContent.split(" ");
+      score.textContent = `${text} ${Number(value) + 10}`;
+      audioYes.play();
       // busket.style.backgroundColor = "green";
     } else {
       hippoNo.style.display = "block";
-      // busket.style.backgroundColor = "red";
+      previousHippo = "no";
+      audioNo.play();
     }
-    // busket.style.backgroundСolor = '#535bf2';
   }
 }
 
@@ -167,13 +117,10 @@ function checkFood(food) {
     "Мясо",
     "Рыба",
     "Цитрусовые (апельсины, лимоны, грейпфруты)",
-    "Острая пища",
-    "Шоколад",
-    "Конфеты",
-    "Кофе",
     "Чай",
     "Картофель",
     "Грибы",
+    "Конфеты",
     "Чеснок",
     "Лук",
     "Орехи",
@@ -200,7 +147,6 @@ function checkFood(food) {
     "Spicy food",
     "Chocolate",
     "Candies",
-    "Coffee",
     "Tea",
     "Potatoes",
     "Mushrooms",
@@ -209,16 +155,9 @@ function checkFood(food) {
     "Nuts",
   ];
 
-  console.log(
-    food,
-    typeof food,
-    food.length,
-    allowedFoods.includes(food),
-    allowedFoods.includes("Водяные растения"),
-    "Трава".length
+  return (currentLanguage === "Ru" ? allowedFoods : allowedFoodsEng).includes(
+    food
   );
-
-  return allowedFoods.includes(food);
 }
 
 function hippoIconAnination() {
@@ -227,3 +166,72 @@ function hippoIconAnination() {
 }
 
 hippoIconAnination();
+
+const buttonLang = document.querySelector(".buttonLang");
+buttonLang.addEventListener("click", switchLanguage);
+
+function switchLanguage() {
+  const lang = document.querySelector(".language");
+  currentLanguage = lang.textContent === "Ru" ? "En" : "Ru";
+  lang.textContent = currentLanguage;
+  console.log("IN HANDLER", currentLanguage);
+  updateFoodList(currentLanguage);
+}
+
+function updateFoodList(lang) {
+  const mixed = [
+    "Рыба",
+    "Трава",
+    "Орехи",
+    "Водяные растения",
+    "Сено",
+    "Листья",
+    "Фрукты (яблоки, арбузы, бананы)",
+    "Огурцы",
+    "Морковь",
+    "Конфеты",
+    "Капуста",
+    "Свёкла",
+    "Лук",
+    "Чеснок",
+    "Тыква",
+    "Брокколи",
+    "Мясо",
+    "Цитрусовые (апельсины, лимоны, грейпфруты)",
+    "Чай",
+    "Картофель",
+    "Грибы",
+  ];
+  const mixedEng = [
+    "Fish",
+    "Grass",
+    "Nuts",
+    "Aquatic plants",
+    "Hay",
+    "Leaves",
+    "Fruits (apples, watermelons, bananas)",
+    "Cucumbers",
+    "Carrots",
+    "Candies",
+    "Cabbage",
+    "Beets",
+    "Onion",
+    "Garlic",
+    "Pumpkin",
+    "Broccoli",
+    "Meat",
+    "Citrus fruits (oranges, lemons, grapefruits)",
+    "Tea",
+    "Potatoes",
+    "Mushrooms",
+  ];
+
+  let food = lang === "Ru" ? mixed : mixedEng;
+  list.innerHTML = "";
+  food.forEach((item) => {
+    list.insertAdjacentHTML(
+      "beforeend",
+      `<li class="liView"><h1 data-species="${item}" >${item}</h1></li>`
+    );
+  });
+}
