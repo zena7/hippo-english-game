@@ -2,35 +2,36 @@ import "normalize.css";
 import "./style.css";
 
 let currentLanguage = "Ru";
-const busket = document.querySelector(".busket");
-const list = document.querySelector(".food");
+const getElemBySelector = (elem) => document.querySelector(elem);
+const hideElem = (elem) => (elem.style.display = "none");
+const showElem = (elem) => (elem.style.display = "block");
+const busket = getElemBySelector(".busket");
+const list = getElemBySelector(".food");
 const hippo = document.querySelectorAll(".hippo")[0];
-const hippoYes = document.querySelector(".hippoYes");
-const hippoNo = document.querySelector(".hippoNo");
-const score = document.querySelector(".score").firstElementChild;
+const hippoYes = getElemBySelector(".hippoYes");
+const hippoNo = getElemBySelector(".hippoNo");
+const score = getElemBySelector(".score").firstElementChild;
 let previousHippo = null;
 const audioYes = new Audio("./assets/audio/soundYes.mp3");
 const audioNo = new Audio("./assets/audio/soundNo.mp3");
-
-updateFoodList(currentLanguage);
-console.dir(busket.getBoundingClientRect());
-
+let choosenfood = null;
 let hippoDown = false;
 let coordinate = "";
 
+updateFoodList(currentLanguage);
+console.dir(busket.getBoundingClientRect());
 document.addEventListener("mousedown", handleMouseDown);
 let target = null;
 
 function handleMouseDown(e) {
-  // busket.style.backgroundColor = "white";
-  // console.log(e.target.tagName)
+  console.log("CHECK!!!!", e.target.tagName, e.target, e.currentTarget);
   e.preventDefault();
 
   if (e.target.tagName === "H1") {
     hippoDown = true;
-    if (previousHippo === "yes") hippoYes.style.display = "none";
-    if (previousHippo === "no") hippoNo.style.display = "none";
-    hippo.style.display = "block";
+    if (previousHippo === "yes") hideElem(hippoYes);
+    if (previousHippo === "no") hideElem(hippoNo);
+    showElem(hippo);
 
     if (!e.target.classList.contains("duplicate")) {
       target = e.target.cloneNode(true);
@@ -44,6 +45,8 @@ function handleMouseDown(e) {
     } else {
       target = e.target;
     }
+
+    console.log("TARGET", target);
     document.addEventListener("mousemove", handleMove);
     document.addEventListener("mouseup", handleUp, { once: true });
   }
@@ -81,17 +84,18 @@ function includesTarget(coord) {
 
   if (x >= butLeft && x <= butRight && y >= butTop && y <= butBottom) {
     let targetValue = target.dataset.species;
-    hippo.style.display = "none";
+    hideElem(hippo);
+    target.remove();
+    // setTimeout(() => target.remove(), 1100);
 
     if (checkFood(targetValue)) {
-      hippoYes.style.display = "block";
+      showElem(hippoYes);
       previousHippo = "yes";
       let [text, value] = score.textContent.split(" ");
       score.textContent = `${text} ${Number(value) + 10}`;
       audioYes.play();
-      // busket.style.backgroundColor = "green";
     } else {
-      hippoNo.style.display = "block";
+      showElem(hippoNo);
       previousHippo = "no";
       audioNo.play();
     }
@@ -112,7 +116,6 @@ function checkFood(food) {
     "Тыква",
     "Брокколи",
   ];
-
   const forbiddenFoods = [
     "Мясо",
     "Рыба",
@@ -125,7 +128,6 @@ function checkFood(food) {
     "Лук",
     "Орехи",
   ];
-
   const allowedFoodsEng = [
     "Grass",
     "Aquatic plants",
@@ -139,7 +141,6 @@ function checkFood(food) {
     "Pumpkin",
     "Broccoli",
   ];
-
   const forbiddenFoodsEng = [
     "Meat",
     "Fish",
@@ -160,21 +161,13 @@ function checkFood(food) {
   );
 }
 
-function hippoIconAnination() {
-  const hippo = document.querySelectorAll(".hippo");
-  console.log("HIPPO", hippo);
-}
-
-hippoIconAnination();
-
-const buttonLang = document.querySelector(".buttonLang");
+const buttonLang = getElemBySelector(".buttonLang");
 buttonLang.addEventListener("click", switchLanguage);
 
-function switchLanguage() {
-  const lang = document.querySelector(".language");
+function switchLanguage(e) {
+  const lang = getElemBySelector(".language");
   currentLanguage = lang.textContent === "Ru" ? "En" : "Ru";
   lang.textContent = currentLanguage;
-  console.log("IN HANDLER", currentLanguage);
   updateFoodList(currentLanguage);
 }
 
