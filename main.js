@@ -12,6 +12,8 @@ const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
 const score = getElemBySelector(".score").firstElementChild;
+const darkPhone = getElemBySelector(".endOfGameBackground");
+
 let previousHippo = null;
 const audioYes = new Audio("./assets/audio/soundYes.mp3");
 const audioNo = new Audio("./assets/audio/soundNo.mp3");
@@ -72,7 +74,8 @@ function handleUp(e) {
   if (collectionLength.length === 0) {
     const finalElem = getElemBySelector(".endOfGame");
     setTimeout(() => {
-      finalElem.style.display = "block";
+      showElem(finalElem);
+      showElem(darkPhone);
     }, 1500);
   }
 
@@ -187,23 +190,23 @@ function updateFoodList(lang) {
     "Трава",
     "Орехи",
     "Водяные растения",
-    "Сено",
-    "Листья",
-    "Фрукты (яблоки, арбузы, бананы)",
-    "Огурцы",
-    "Морковь",
-    "Конфеты",
-    "Капуста",
-    "Свёкла",
-    "Лук",
-    "Чеснок",
-    "Тыква",
-    "Брокколи",
-    "Мясо",
-    "Цитрусовые (апельсины, лимоны, грейпфруты)",
-    "Чай",
-    "Картофель",
-    "Грибы",
+    // "Сено",
+    // "Листья",
+    // "Фрукты (яблоки, арбузы, бананы)",
+    // "Огурцы",
+    // "Морковь",
+    // "Конфеты",
+    // "Капуста",
+    // "Свёкла",
+    // "Лук",
+    // "Чеснок",
+    // "Тыква",
+    // "Брокколи",
+    // "Мясо",
+    // "Цитрусовые (апельсины, лимоны, грейпфруты)",
+    // "Чай",
+    // "Картофель",
+    // "Грибы",
   ];
   const mixedEng = [
     "Fish",
@@ -238,3 +241,24 @@ function updateFoodList(lang) {
     );
   });
 }
+
+const sectionEndOfGame = getElemBySelector(".endOfGame");
+const buttonCloseSectionEndOfGame = getElemBySelector(".btnClose");
+const btnPlayAgain = getElemBySelector(".controlPanelplayAgain");
+
+buttonCloseSectionEndOfGame.addEventListener("click", closeSection);
+
+function closeSection() {
+  console.log("click enfOfGame");
+  hideElem(sectionEndOfGame);
+  hideElem(darkPhone);
+}
+
+btnPlayAgain.addEventListener("click", () => {
+  console.log("AGAIN");
+  closeSection();
+  updateFoodList(currentLanguage);
+  if (previousHippo === "yes") hideElem(hippoYes);
+  if (previousHippo === "no") hideElem(hippoNo);
+  showElem(hippo);
+});
