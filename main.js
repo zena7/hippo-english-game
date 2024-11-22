@@ -7,24 +7,24 @@ const hideElem = (elem) => (elem.style.display = "none");
 const showElem = (elem) => (elem.style.display = "block");
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
+console.log("List", list, list.children);
 const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
 const score = getElemBySelector(".score").firstElementChild;
+const darkPhone = getElemBySelector(".endOfGameBackground");
+
 let previousHippo = null;
 const audioYes = new Audio("./assets/audio/soundYes.mp3");
 const audioNo = new Audio("./assets/audio/soundNo.mp3");
-let choosenfood = null;
 let hippoDown = false;
 let coordinate = "";
 
 updateFoodList(currentLanguage);
-console.dir(busket.getBoundingClientRect());
 document.addEventListener("mousedown", handleMouseDown);
 let target = null;
 
 function handleMouseDown(e) {
-  console.log("CHECK!!!!", e.target.tagName, e.target, e.currentTarget);
   e.preventDefault();
 
   if (e.target.tagName === "H1") {
@@ -46,7 +46,6 @@ function handleMouseDown(e) {
       target = e.target;
     }
 
-    console.log("TARGET", target);
     document.addEventListener("mousemove", handleMove);
     document.addEventListener("mouseup", handleUp, { once: true });
   }
@@ -66,6 +65,19 @@ function handleUp(e) {
   coordinate = `${e.pageX},${e.pageY}`;
   includesTarget(coordinate);
   coordinate = "";
+  console.log("List", list, list.children.length);
+
+  let collectionLength = Array.from(list.children).filter((item) =>
+    item.classList.contains("liView")
+  );
+
+  if (collectionLength.length === 0) {
+    const finalElem = getElemBySelector(".endOfGame");
+    setTimeout(() => {
+      showElem(finalElem);
+      showElem(darkPhone);
+    }, 1500);
+  }
 
   document.removeEventListener("mousemove", handleMove);
 }
@@ -78,9 +90,6 @@ function includesTarget(coord) {
     left: butLeft,
     right: butRight,
   } = busket.getBoundingClientRect();
-  console.log(
-    `x: ${x}, y: ${y} and for X: ${butLeft},${butRight} for Y:  ${butTop}, ${butBottom}`
-  );
 
   if (x >= butLeft && x <= butRight && y >= butTop && y <= butBottom) {
     let targetValue = target.dataset.species;
@@ -92,6 +101,7 @@ function includesTarget(coord) {
       showElem(hippoYes);
       previousHippo = "yes";
       let [text, value] = score.textContent.split(" ");
+      text = currentLanguage === "Ru" ? "Очки" : "Score";
       score.textContent = `${text} ${Number(value) + 10}`;
       audioYes.play();
     } else {
@@ -169,6 +179,9 @@ function switchLanguage(e) {
   currentLanguage = lang.textContent === "Ru" ? "En" : "Ru";
   lang.textContent = currentLanguage;
   updateFoodList(currentLanguage);
+  let [text, value] = score.textContent.split(" ");
+  text = currentLanguage === "Ru" ? "Очки" : "Score";
+  score.textContent = `${text} ${Number(value)}`;
 }
 
 function updateFoodList(lang) {
@@ -177,23 +190,23 @@ function updateFoodList(lang) {
     "Трава",
     "Орехи",
     "Водяные растения",
-    "Сено",
-    "Листья",
-    "Фрукты (яблоки, арбузы, бананы)",
-    "Огурцы",
-    "Морковь",
-    "Конфеты",
-    "Капуста",
-    "Свёкла",
-    "Лук",
-    "Чеснок",
-    "Тыква",
-    "Брокколи",
-    "Мясо",
-    "Цитрусовые (апельсины, лимоны, грейпфруты)",
-    "Чай",
-    "Картофель",
-    "Грибы",
+    // "Сено",
+    // "Листья",
+    // "Фрукты (яблоки, арбузы, бананы)",
+    // "Огурцы",
+    // "Морковь",
+    // "Конфеты",
+    // "Капуста",
+    // "Свёкла",
+    // "Лук",
+    // "Чеснок",
+    // "Тыква",
+    // "Брокколи",
+    // "Мясо",
+    // "Цитрусовые (апельсины, лимоны, грейпфруты)",
+    // "Чай",
+    // "Картофель",
+    // "Грибы",
   ];
   const mixedEng = [
     "Fish",
@@ -228,3 +241,24 @@ function updateFoodList(lang) {
     );
   });
 }
+
+const sectionEndOfGame = getElemBySelector(".endOfGame");
+const buttonCloseSectionEndOfGame = getElemBySelector(".btnClose");
+const btnPlayAgain = getElemBySelector(".controlPanelplayAgain");
+
+buttonCloseSectionEndOfGame.addEventListener("click", closeSection);
+
+function closeSection() {
+  console.log("click enfOfGame");
+  hideElem(sectionEndOfGame);
+  hideElem(darkPhone);
+}
+
+btnPlayAgain.addEventListener("click", () => {
+  console.log("AGAIN");
+  closeSection();
+  updateFoodList(currentLanguage);
+  if (previousHippo === "yes") hideElem(hippoYes);
+  if (previousHippo === "no") hideElem(hippoNo);
+  showElem(hippo);
+});

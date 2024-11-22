@@ -89,7 +89,7 @@ h1 {
   width: 60%;
   height: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
   padding-top: 0;
   padding-bottom: 0;
@@ -142,11 +142,9 @@ h1 {
   position: relative;
   width: 17rem;
   height: 17rem;
-  border: 2px solid gray;
   border-radius: 5px;
   margin: 0 auto;
   margin-top: 14%;
-  /* background-color: white; */
 }
 
 @keyframes float {
@@ -205,7 +203,117 @@ button:hover {
 }
 
 .liView:hover {
-  /* background-color: rgba(163, 200, 220, 0.5); */
-  /* background-color: rgba(243, 174, 203, 0.6); */
   background-color: rgba(236, 166, 160, 0.7);
+}
+
+.endOfGameBackground {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(34, 33, 31, 0.622);
+}
+
+.endOfGame {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 88%;
+  background-color: pink;
+  top: 7%;
+  border-radius: 15px;
+}
+
+.congratulationWrap {
+  padding-top: 2.8%;
+}
+
+@keyframes shadow-move-end-game {
+  0%,
+  100% {
+    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
+    filter: drop-shadow(0 2.5em 1.5em #68686b94);
+  }
+  50% {
+    /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3); */
+    filter: drop-shadow(0 2.5em 1.5em #68686b94);
+  }
+}
+
+.hippoEndOfGame {
+  position: relative;
+  width: 45%;
+  animation: float 10s ease-in-out infinite,
+    shadow-move-end-game 10s ease-in-out infinite;
+}
+
+.congratulation {
+  /* padding-top: 3%; */
+  font-size: 1.6rem;
+}
+
+.congratulation:first-child {
+  padding-bottom: 2%;
+  font-size: 2.2rem;
+}
+
+.controlPanel {
+  width: 100%;
+  font-size: 1.6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  column-gap: 1.8rem;
+  z-index: 2;
+}
+
+.controlPanel button {
+  padding: 1.4% 2%;
+  border-radius: 15px;
+  font-weight: 600;
+  color: #213547;
+  transition: background-color 0.5s ease;
+  border: 2px solid pink;
+}
+
+.controlPanel button:hover {
+  /* background-color: rgb(237, 244, 141); */
+  background: linear-gradient(
+    to left bottom,
+    rgb(237, 244, 141),
+    rgb(201, 232, 237),
+    rgb(237, 244, 141)
+  );
+}
+
+.btnClose {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  width: 6%;
+  /* height: 6%; */
+  right: 3%;
+  top: 3%;
+  padding: 0 0;
+}
+
+.btnClose:hover {
+  border-radius: 70%;
+  background-color: rgb(237, 244, 141);
+}
+
+.btnClose img {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.btnClose img:hover {
+  /* filter: brightness(0) saturate(100%) invert(92%) sepia(22%) saturate(759%)
+    hue-rotate(11deg) brightness(105%) contrast(91%); */
+  filter: brightness(0) saturate(100%) invert(94%) sepia(99%) saturate(3323%)
+    hue-rotate(171deg) brightness(90%) contrast(84%);
 }

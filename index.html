@@ -19,7 +19,7 @@
     <div id="app">
       <header class="header">
         <div class="score">
-          <h2>Score 0</h2>
+          <h2>Очки 0</h2>
         </div>
       </header>
       <div class="settings">
@@ -53,8 +53,29 @@
 
         <!-- <div class="shadow"></div> -->
       </div>
+      <div class="endOfGameBackground"></div>
+      <section class="endOfGame">
+        <button class="btnClose">
+          <img src="./assets/svg/btn-close.svg" alt="close-icon" />
+        </button>
+        <div class="congratulationWrap">
+          <h2 class="congratulation">Bravo!</h2>
+          <h2 class="congratulation">The hippopotamus is full, thank you!</h2>
+          <h2 class="congratulation">You scored 20 points.</h2>
+        </div>
+        <img
+          src="./assets/img/hippo-eat.png"
+          alt="hippoHappyEnd"
+          class="hippoEndOfGame" />
+        <div class="controlPanel">
+          <button class="controlPanelShowList">
+            Show the list of allowed foods
+          </button>
+          <button class="controlPanelplayAgain">Play again</button>
+        </div>
+      </section>
     </div>
+    <footer></footer>
     <script type="module" src="/main.js"></script>
   </body>
-  <footer></footer>
 </html>
