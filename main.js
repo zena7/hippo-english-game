@@ -75,8 +75,9 @@ function handleUp(e) {
     const finalElem = getElemBySelector(".endOfGame");
     setTimeout(() => {
       showElem(finalElem);
+      // finalElem.style.opacity = "1";
       showElem(darkPhone);
-    }, 1500);
+    }, 1000);
   }
 
   document.removeEventListener("mousemove", handleMove);
@@ -95,7 +96,6 @@ function includesTarget(coord) {
     let targetValue = target.dataset.species;
     hideElem(hippo);
     target.remove();
-    // setTimeout(() => target.remove(), 1100);
 
     if (checkFood(targetValue)) {
       showElem(hippoYes);

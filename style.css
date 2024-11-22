@@ -224,6 +224,16 @@ button:hover {
   background-color: pink;
   top: 7%;
   border-radius: 15px;
+  animation: setOpacity 0.4s ease-in-out;
+}
+
+@keyframes setOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .congratulationWrap {
