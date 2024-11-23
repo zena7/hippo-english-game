@@ -1,5 +1,9 @@
 @import url("https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css");
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -29,11 +33,6 @@ ul {
   padding: 0 0;
   padding-top: 8%;
   row-gap: 0.2rem;
-  /* column-gap: 1.2rem; */
-}
-
-li {
-  /* cursor: pointer; */
 }
 
 .liView {
@@ -89,7 +88,6 @@ h1 {
   width: 60%;
   height: 100%;
   margin: 0 auto;
-  /* padding: 2rem; */
   text-align: center;
   padding-top: 0;
   padding-bottom: 0;
@@ -151,22 +149,18 @@ h1 {
   0%,
   100% {
     transform: translateY(0);
-    /* scale(1);  */
   }
   50% {
     transform: translateY(-6%);
-    /* scale(1.08);  */
   }
 }
 
 @keyframes shadow-move {
   0%,
   100% {
-    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
     filter: drop-shadow(0 5em 1.2em #68686b94);
   }
   50% {
-    /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3); */
     filter: drop-shadow(0 6em 1.5em #68686b94);
   }
 }
@@ -218,12 +212,24 @@ button:hover {
 
 .endOfGame {
   display: none;
+  display: block;
+
   position: absolute;
   width: 100%;
   height: 88%;
   background-color: pink;
   top: 7%;
   border-radius: 15px;
+  animation: setOpacity 0.4s ease-in-out;
+}
+
+@keyframes setOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .congratulationWrap {
@@ -233,11 +239,9 @@ button:hover {
 @keyframes shadow-move-end-game {
   0%,
   100% {
-    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
     filter: drop-shadow(0 2.5em 1.5em #68686b94);
   }
   50% {
-    /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3); */
     filter: drop-shadow(0 2.5em 1.5em #68686b94);
   }
 }
@@ -250,7 +254,6 @@ button:hover {
 }
 
 .congratulation {
-  /* padding-top: 3%; */
   font-size: 1.6rem;
 }
 
@@ -316,4 +319,40 @@ button:hover {
     hue-rotate(11deg) brightness(105%) contrast(91%); */
   filter: brightness(0) saturate(100%) invert(94%) sepia(99%) saturate(3323%)
     hue-rotate(171deg) brightness(90%) contrast(84%);
+}
+
+.listOfAllowedFood {
+  display: none;
+}
+
+.active {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  padding-top: 3%;
+}
+
+.active h2 {
+  font-size: 2.8rem;
+}
+
+.active ul {
+  display: grid;
+  grid-template-columns: repeat(1fr 1fr);
+  width: 100%;
+  height: 100%;
+  justify-content: start;
+  /* flex-wrap: wrap; */
+  padding-top: 1rem;
+  row-gap: 0.8rem;
+  padding-left: 8%;
+}
+
+.active h3 {
+  width: 100%;
+  margin: 0;
+  font-size: 1.6rem;
+  text-align: left;
+  /* padding-left: 8%; */
 }
