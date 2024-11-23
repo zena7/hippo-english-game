@@ -7,11 +7,12 @@ const hideElem = (elem) => (elem.style.display = "none");
 const showElem = (elem) => (elem.style.display = "block");
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
-console.log("List", list, list.children);
 const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
 const score = getElemBySelector(".score").firstElementChild;
+const setScore = (value = 0) =>
+  (score.textContent = `${text} ${Number(value)}`);
 const darkPhone = getElemBySelector(".endOfGameBackground");
 
 let previousHippo = null;
@@ -65,7 +66,6 @@ function handleUp(e) {
   coordinate = `${e.pageX},${e.pageY}`;
   includesTarget(coordinate);
   coordinate = "";
-  console.log("List", list, list.children.length);
 
   let collectionLength = Array.from(list.children).filter((item) =>
     item.classList.contains("liView")
@@ -254,11 +254,35 @@ function closeSection() {
   hideElem(darkPhone);
 }
 
+let listOfAllowedFoodOpend = false;
+
 btnPlayAgain.addEventListener("click", () => {
   console.log("AGAIN");
+
+  if (listOfAllowedFoodOpend) {
+    showElem(congratulationText);
+    showElem(hippoEndOfGame);
+    showElem(foodAllowed);
+    listOfAllowedFoodOpend = false;
+  }
+
   closeSection();
   updateFoodList(currentLanguage);
   if (previousHippo === "yes") hideElem(hippoYes);
   if (previousHippo === "no") hideElem(hippoNo);
   showElem(hippo);
+});
+
+const foodAllowed = getElemBySelector(".controlPanelShowList");
+const congratulationText = getElemBySelector(".congratulationWrap");
+const hippoEndOfGame = getElemBySelector(".hippoEndOfGame");
+const controlPanel = getElemBySelector(".controlPanel");
+const divlistOfAllowedFood = getElemBySelector(".listOfAllowedFood");
+
+foodAllowed.addEventListener("click", () => {
+  hideElem(congratulationText);
+  hideElem(hippoEndOfGame);
+  hideElem(foodAllowed);
+  listOfAllowedFoodOpend = true;
+  divlistOfAllowedFood.classList.add("active");
 });
