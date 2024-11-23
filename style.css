@@ -249,6 +249,7 @@ button:hover {
 .hippoEndOfGame {
   position: relative;
   width: 45%;
+  margin: 0 auto;
   animation: float 10s ease-in-out infinite,
     shadow-move-end-game 10s ease-in-out infinite;
 }
@@ -329,8 +330,7 @@ button:hover {
   display: block;
   position: relative;
   width: 100%;
-
-  padding-top: 3%;
+  padding-top: 6%;
 }
 
 .active h2 {
@@ -339,14 +339,16 @@ button:hover {
 
 .active ul {
   display: grid;
-  grid-template-columns: repeat(1fr 1fr);
+  grid-template-columns: repeat(2, 1fr);
   width: 100%;
   height: 100%;
   justify-content: start;
   /* flex-wrap: wrap; */
   padding-top: 1rem;
-  row-gap: 0.8rem;
+  row-gap: 1rem;
+  column-gap: 1.4rem;
   padding-left: 8%;
+  margin-bottom: 4%;
 }
 
 .active h3 {
@@ -354,5 +356,12 @@ button:hover {
   margin: 0;
   font-size: 1.6rem;
   text-align: left;
+  font-weight: 600;
+
   /* padding-left: 8%; */
+}
+
+.active li:last-child {
+  /* background-color: #fff; */
+  grid-column: 1 / -1;
 }

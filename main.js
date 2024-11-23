@@ -245,6 +245,8 @@ function updateFoodList(lang) {
 const sectionEndOfGame = getElemBySelector(".endOfGame");
 const buttonCloseSectionEndOfGame = getElemBySelector(".btnClose");
 const btnPlayAgain = getElemBySelector(".controlPanelplayAgain");
+const divlistOfAllowedFood = getElemBySelector(".listOfAllowedFood");
+let listOfAllowedFoodOpend = false;
 
 buttonCloseSectionEndOfGame.addEventListener("click", closeSection);
 
@@ -252,14 +254,20 @@ function closeSection() {
   console.log("click enfOfGame");
   hideElem(sectionEndOfGame);
   hideElem(darkPhone);
+  if (listOfAllowedFoodOpend) {
+    divlistOfAllowedFood.classList.toggle("active");
+    listOfAllowedFoodOpend = false;
+    showElem(congratulationText);
+    showElem(hippoEndOfGame);
+    showElem(foodAllowed);
+  }
 }
-
-let listOfAllowedFoodOpend = false;
 
 btnPlayAgain.addEventListener("click", () => {
   console.log("AGAIN");
 
   if (listOfAllowedFoodOpend) {
+    divlistOfAllowedFood.classList.toggle("active");
     showElem(congratulationText);
     showElem(hippoEndOfGame);
     showElem(foodAllowed);
@@ -277,12 +285,11 @@ const foodAllowed = getElemBySelector(".controlPanelShowList");
 const congratulationText = getElemBySelector(".congratulationWrap");
 const hippoEndOfGame = getElemBySelector(".hippoEndOfGame");
 const controlPanel = getElemBySelector(".controlPanel");
-const divlistOfAllowedFood = getElemBySelector(".listOfAllowedFood");
 
 foodAllowed.addEventListener("click", () => {
   hideElem(congratulationText);
   hideElem(hippoEndOfGame);
   hideElem(foodAllowed);
   listOfAllowedFoodOpend = true;
-  divlistOfAllowedFood.classList.add("active");
+  divlistOfAllowedFood.classList.toggle("active");
 });
