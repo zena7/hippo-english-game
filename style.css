@@ -212,8 +212,6 @@ button:hover {
 
 .endOfGame {
   display: none;
-  display: block;
-
   position: absolute;
   width: 100%;
   height: 88%;
@@ -232,8 +230,13 @@ button:hover {
   }
 }
 
-.congratulationWrap {
+.congratulationWrap,
+.congratulationWrapRu {
   padding-top: 2.8%;
+}
+
+.congratulationWrap {
+  display: none;
 }
 
 @keyframes shadow-move-end-game {
@@ -249,6 +252,7 @@ button:hover {
 .hippoEndOfGame {
   position: relative;
   width: 45%;
+  margin: 0 auto;
   animation: float 10s ease-in-out infinite,
     shadow-move-end-game 10s ease-in-out infinite;
 }
@@ -282,8 +286,11 @@ button:hover {
   border: 2px solid pink;
 }
 
+.buttonHide {
+  display: none;
+}
+
 .controlPanel button:hover {
-  /* background-color: rgb(237, 244, 141); */
   background: linear-gradient(
     to left bottom,
     rgb(237, 244, 141),
@@ -297,7 +304,6 @@ button:hover {
   border: none;
   position: absolute;
   width: 6%;
-  /* height: 6%; */
   right: 3%;
   top: 3%;
   padding: 0 0;
@@ -315,8 +321,6 @@ button:hover {
 }
 
 .btnClose img:hover {
-  /* filter: brightness(0) saturate(100%) invert(92%) sepia(22%) saturate(759%)
-    hue-rotate(11deg) brightness(105%) contrast(91%); */
   filter: brightness(0) saturate(100%) invert(94%) sepia(99%) saturate(3323%)
     hue-rotate(171deg) brightness(90%) contrast(84%);
 }
@@ -329,8 +333,7 @@ button:hover {
   display: block;
   position: relative;
   width: 100%;
-
-  padding-top: 3%;
+  padding-top: 6%;
 }
 
 .active h2 {
@@ -339,14 +342,15 @@ button:hover {
 
 .active ul {
   display: grid;
-  grid-template-columns: repeat(1fr 1fr);
+  grid-template-columns: repeat(2, 1fr);
   width: 100%;
   height: 100%;
   justify-content: start;
-  /* flex-wrap: wrap; */
   padding-top: 1rem;
-  row-gap: 0.8rem;
-  padding-left: 8%;
+  row-gap: 1rem;
+  column-gap: 1.4rem;
+  padding-left: 7%;
+  margin-bottom: 4%;
 }
 
 .active h3 {
@@ -354,5 +358,37 @@ button:hover {
   margin: 0;
   font-size: 1.6rem;
   text-align: left;
-  /* padding-left: 8%; */
+  font-weight: 600;
+}
+
+.active li {
+  list-style-type: none;
+  position: relative;
+  padding-left: 0.4rem;
+}
+
+.active li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  transform: translateX(-90%);
+  width: 1.6rem; /* Ширина маркера */
+  height: 1.6rem;
+  background-image: url("./assets/svg/marker.svg");
+  background-size: contain; /* Масштабирование */
+  background-repeat: no-repeat;
+  filter: brightness(0) saturate(100%) invert(88%) sepia(30%) saturate(529%)
+    hue-rotate(13deg) brightness(104%) contrast(94%);
+}
+
+.active .liShift::before {
+  top: 20%;
+  left: -1.4rem;
+  transform: translateX(-90%);
+  transform: translateY(-26%);
+}
+
+.active li:last-child {
+  grid-column: 1 / -1;
 }
