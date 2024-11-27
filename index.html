@@ -30,11 +30,6 @@
           <i class="fi fi-br-volume"></i>
         </div>
       </div>
-      <!-- <div class="bugs">
-        <img src="./assets/img/firefly.png" alt="firefly" />
-        <img src="./assets/img/firefly.png" alt="firefly" />
-        <img src="./assets/img/firefly.png" alt="firefly" />
-      </div> -->
       <ul class="food"></ul>
       <div class="busket">
         <img src="./assets/img/hippo-hi.png" alt="hippo" class="hippo" />
@@ -50,8 +45,6 @@
           src="./assets/img/hippo-yes.png"
           alt="hippo "
           class="hippo hippoYes" />
-
-        <!-- <div class="shadow"></div> -->
       </div>
       <div class="endOfGameBackground"></div>
       <section class="endOfGame">
@@ -61,7 +54,12 @@
         <div class="congratulationWrap">
           <h2 class="congratulation">Bravo!</h2>
           <h2 class="congratulation">The hippopotamus is full, thank you!</h2>
-          <h2 class="congratulation">You scored 20 points.</h2>
+          <h2 class="congratulation">You scored 110 points.</h2>
+        </div>
+        <div class="congratulationWrapRu">
+          <h2 class="congratulation">Браво!</h2>
+          <h2 class="congratulation">Бегемот сыт, спасибо тебе!</h2>
+          <h2 class="congratulation">Ты заработал 110 очков.</h2>
         </div>
         <img
           src="./assets/img/hippo-eat.png"
@@ -78,9 +76,9 @@
             <li><h3>Сено - Hay</h3></li>
             <li><h3>Листья - Leaves</h3></li>
             <li><h3>Огурцы - Cucumbers</h3></li>
-            <li><h3>Морковь - Carrots</h3></li>
-            <li><h3>Водяные растения - Aquatic plants</h3></li>
-            <li>
+            <li class="liShift"><h3>Морковь - Carrots</h3></li>
+            <li class="liShift"><h3>Водяные растения - Aquatic plants</h3></li>
+            <li class="liShift">
               <h3>
                 Фрукты (яблоки, арбузы, бананы) - Fruits (apples, watermelons,
                 bananas)
@@ -89,10 +87,20 @@
           </ul>
         </div>
         <div class="controlPanel">
-          <button class="controlPanelShowList">
+          <button class="controlPanelBtn controlPanelShowList buttonHide">
             Show the list of allowed foods
           </button>
-          <button class="controlPanelplayAgain">Play again</button>
+          <button
+            class="controlPanelBtn controlPanelShowList controlPanelShowListRu">
+            Показать список разрешенной еды
+          </button>
+          <button class="controlPanelBtn controlPanelplayAgain buttonHide">
+            Play again
+          </button>
+          <button
+            class="controlPanelBtn controlPanelplayAgain controlPanelplayAgainRu">
+            Играть еще
+          </button>
         </div>
       </section>
     </div>

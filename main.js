@@ -1,38 +1,52 @@
 import "normalize.css";
+import { allowedFoods, allowedFoodsEng } from "./src/data";
+import { getElemBySelector, hideElem, showElem } from "./src/domUtils";
+import {
+  switchLanguage,
+  updateFoodList,
+  currentLanguage,
+} from "./src/switchLang";
 import "./style.css";
 
-let currentLanguage = "Ru";
-const getElemBySelector = (elem) => document.querySelector(elem);
-const hideElem = (elem) => (elem.style.display = "none");
-const showElem = (elem) => (elem.style.display = "block");
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
 const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
+
 const score = getElemBySelector(".score").firstElementChild;
-const setScore = (value = 0) =>
-  (score.textContent = `${text} ${Number(value)}`);
+export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
+  let [text, curVal] = score.textContent.split(" ");
+
+  text = lang === "Ru" ? "Очки" : "Score";
+  score.textContent = `${text} ${reset ? 0 : Number(curVal) + value}`;
+};
+
 const darkPhone = getElemBySelector(".endOfGameBackground");
 
-let previousHippo = null;
 const audioYes = new Audio("./assets/audio/soundYes.mp3");
 const audioNo = new Audio("./assets/audio/soundNo.mp3");
-let hippoDown = false;
+let foodMouseDown = false;
 let coordinate = "";
 
-updateFoodList(currentLanguage);
+updateFoodList(currentLanguage, list);
+
 document.addEventListener("mousedown", handleMouseDown);
 let target = null;
+
+let previousHippo = null;
+const showInitialHippo = () => {
+  if (previousHippo === "yes") hideElem(hippoYes);
+  if (previousHippo === "no") hideElem(hippoNo);
+  showElem(hippo);
+};
 
 function handleMouseDown(e) {
   e.preventDefault();
 
   if (e.target.tagName === "H1") {
-    hippoDown = true;
-    if (previousHippo === "yes") hideElem(hippoYes);
-    if (previousHippo === "no") hideElem(hippoNo);
-    showElem(hippo);
+    foodMouseDown = true;
+    showInitialHippo();
 
     if (!e.target.classList.contains("duplicate")) {
       target = e.target.cloneNode(true);
@@ -55,14 +69,14 @@ function handleMouseDown(e) {
 function handleMove(e) {
   e.preventDefault();
 
-  if (hippoDown) {
+  if (foodMouseDown) {
     target.style.left = `${e.pageX - target.offsetWidth / 2}px`;
     target.style.top = `${e.pageY - target.offsetHeight / 2}px`;
   }
 }
 
 function handleUp(e) {
-  hippoDown = false;
+  foodMouseDown = false;
   coordinate = `${e.pageX},${e.pageY}`;
   includesTarget(coordinate);
   coordinate = "";
@@ -75,7 +89,6 @@ function handleUp(e) {
     const finalElem = getElemBySelector(".endOfGame");
     setTimeout(() => {
       showElem(finalElem);
-      // finalElem.style.opacity = "1";
       showElem(darkPhone);
     }, 1000);
   }
@@ -100,9 +113,7 @@ function includesTarget(coord) {
     if (checkFood(targetValue)) {
       showElem(hippoYes);
       previousHippo = "yes";
-      let [text, value] = score.textContent.split(" ");
-      text = currentLanguage === "Ru" ? "Очки" : "Score";
-      score.textContent = `${text} ${Number(value) + 10}`;
+      setScore({ lang: currentLanguage, value: 10 });
       audioYes.play();
     } else {
       showElem(hippoNo);
@@ -113,183 +124,65 @@ function includesTarget(coord) {
 }
 
 function checkFood(food) {
-  const allowedFoods = [
-    "Трава",
-    "Водяные растения",
-    "Сено",
-    "Листья",
-    "Фрукты (яблоки, арбузы, бананы)",
-    "Огурцы",
-    "Морковь",
-    "Капуста",
-    "Свёкла",
-    "Тыква",
-    "Брокколи",
-  ];
-  const forbiddenFoods = [
-    "Мясо",
-    "Рыба",
-    "Цитрусовые (апельсины, лимоны, грейпфруты)",
-    "Чай",
-    "Картофель",
-    "Грибы",
-    "Конфеты",
-    "Чеснок",
-    "Лук",
-    "Орехи",
-  ];
-  const allowedFoodsEng = [
-    "Grass",
-    "Aquatic plants",
-    "Hay",
-    "Leaves",
-    "Fruits (apples, watermelons, bananas)",
-    "Cucumbers",
-    "Carrots",
-    "Cabbage",
-    "Beets",
-    "Pumpkin",
-    "Broccoli",
-  ];
-  const forbiddenFoodsEng = [
-    "Meat",
-    "Fish",
-    "Citrus fruits (oranges, lemons, grapefruits)",
-    "Spicy food",
-    "Chocolate",
-    "Candies",
-    "Tea",
-    "Potatoes",
-    "Mushrooms",
-    "Garlic",
-    "Onion",
-    "Nuts",
-  ];
-
   return (currentLanguage === "Ru" ? allowedFoods : allowedFoodsEng).includes(
     food
   );
 }
 
 const buttonLang = getElemBySelector(".buttonLang");
-buttonLang.addEventListener("click", switchLanguage);
+buttonLang.addEventListener("click", () => switchLanguage(list));
 
-function switchLanguage(e) {
-  const lang = getElemBySelector(".language");
-  currentLanguage = lang.textContent === "Ru" ? "En" : "Ru";
-  lang.textContent = currentLanguage;
-  updateFoodList(currentLanguage);
-  let [text, value] = score.textContent.split(" ");
-  text = currentLanguage === "Ru" ? "Очки" : "Score";
-  score.textContent = `${text} ${Number(value)}`;
-}
-
-function updateFoodList(lang) {
-  const mixed = [
-    "Рыба",
-    "Трава",
-    "Орехи",
-    "Водяные растения",
-    // "Сено",
-    // "Листья",
-    // "Фрукты (яблоки, арбузы, бананы)",
-    // "Огурцы",
-    // "Морковь",
-    // "Конфеты",
-    // "Капуста",
-    // "Свёкла",
-    // "Лук",
-    // "Чеснок",
-    // "Тыква",
-    // "Брокколи",
-    // "Мясо",
-    // "Цитрусовые (апельсины, лимоны, грейпфруты)",
-    // "Чай",
-    // "Картофель",
-    // "Грибы",
-  ];
-  const mixedEng = [
-    "Fish",
-    "Grass",
-    "Nuts",
-    "Aquatic plants",
-    "Hay",
-    "Leaves",
-    "Fruits (apples, watermelons, bananas)",
-    "Cucumbers",
-    "Carrots",
-    "Candies",
-    "Cabbage",
-    "Beets",
-    "Onion",
-    "Garlic",
-    "Pumpkin",
-    "Broccoli",
-    "Meat",
-    "Citrus fruits (oranges, lemons, grapefruits)",
-    "Tea",
-    "Potatoes",
-    "Mushrooms",
-  ];
-
-  let food = lang === "Ru" ? mixed : mixedEng;
-  list.innerHTML = "";
-  food.forEach((item) => {
-    list.insertAdjacentHTML(
-      "beforeend",
-      `<li class="liView"><h1 data-species="${item}" >${item}</h1></li>`
-    );
-  });
-}
+const foodAllowed = getElemBySelector(".controlPanelShowList");
+const foodAllowedRu = getElemBySelector(".controlPanelShowListRu");
 
 const sectionEndOfGame = getElemBySelector(".endOfGame");
 const buttonCloseSectionEndOfGame = getElemBySelector(".btnClose");
-const btnPlayAgain = getElemBySelector(".controlPanelplayAgain");
+// const btnPlayAgain = getElemBySelector(".controlPanelplayAgain");
 const divlistOfAllowedFood = getElemBySelector(".listOfAllowedFood");
 let listOfAllowedFoodOpend = false;
 
 buttonCloseSectionEndOfGame.addEventListener("click", closeSection);
 
-function closeSection() {
-  console.log("click enfOfGame");
-  hideElem(sectionEndOfGame);
-  hideElem(darkPhone);
-  if (listOfAllowedFoodOpend) {
-    divlistOfAllowedFood.classList.toggle("active");
-    listOfAllowedFoodOpend = false;
-    showElem(congratulationText);
-    showElem(hippoEndOfGame);
-    showElem(foodAllowed);
-  }
-}
-
-btnPlayAgain.addEventListener("click", () => {
-  console.log("AGAIN");
-
-  if (listOfAllowedFoodOpend) {
-    divlistOfAllowedFood.classList.toggle("active");
-    showElem(congratulationText);
-    showElem(hippoEndOfGame);
-    showElem(foodAllowed);
-    listOfAllowedFoodOpend = false;
-  }
-
-  closeSection();
-  updateFoodList(currentLanguage);
-  if (previousHippo === "yes") hideElem(hippoYes);
-  if (previousHippo === "no") hideElem(hippoNo);
-  showElem(hippo);
-});
-
-const foodAllowed = getElemBySelector(".controlPanelShowList");
 const congratulationText = getElemBySelector(".congratulationWrap");
 const hippoEndOfGame = getElemBySelector(".hippoEndOfGame");
+const congratulationTextRu = getElemBySelector(".congratulationWrapRu");
+
+function closeSection() {
+  hideElem(sectionEndOfGame);
+  hideElem(darkPhone);
+
+  if (listOfAllowedFoodOpend) {
+    divlistOfAllowedFood.classList.toggle("active");
+    showElem(hippoEndOfGame);
+    listOfAllowedFoodOpend = false;
+    if (currentLanguage === "En") {
+      showElem(congratulationText);
+      showElem(foodAllowed); //??
+    } else {
+      showElem(congratulationTextRu);
+      showElem(foodAllowedRu);
+    }
+  }
+  showInitialHippo();
+}
+
 const controlPanel = getElemBySelector(".controlPanel");
 
-foodAllowed.addEventListener("click", () => {
-  hideElem(congratulationText);
-  hideElem(hippoEndOfGame);
-  hideElem(foodAllowed);
-  listOfAllowedFoodOpend = true;
-  divlistOfAllowedFood.classList.toggle("active");
+controlPanel.addEventListener("click", (event) => {
+  if (event.target.classList.contains("controlPanelShowList")) {
+    hideElem(congratulationText);
+    hideElem(congratulationTextRu);
+    hideElem(hippoEndOfGame);
+    hideElem(foodAllowed); //?? проверить где лежит переменная
+    hideElem(foodAllowedRu);
+    listOfAllowedFoodOpend = true;
+    divlistOfAllowedFood.classList.toggle("active");
+  }
+
+  if (event.target.classList.contains("controlPanelplayAgain")) {
+    closeSection();
+    updateFoodList(currentLanguage, list);
+    showInitialHippo();
+    setScore({ lang: currentLanguage, reset: true });
+  }
 });
