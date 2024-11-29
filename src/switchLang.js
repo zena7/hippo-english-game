@@ -12,6 +12,7 @@ function switchLanguage(list) {
   changeLanguage();
   updateFoodList(currentLanguage, list);
   setScore({ lang: currentLanguage });
+
   for (let item of controlPanelBtns) {
     item.classList.toggle("buttonHide");
   }
@@ -46,3 +47,6 @@ function updateFoodList(lang, list) {
 }
 
 export { currentLanguage, switchLanguage, updateFoodList };
+
+// ПРОБЛЕМА С КНОПКАМИ В МЕНЮ. КОСЯК С ЯЗЫКОМ. НУЖНО ПРОВЕРИТЬ
+//ОБЫЧНО ПОСЛЕ ЗАКРЫТИЯ ОКНА МЕНЮ НАЧИНАЮТСЯ КОСЯКИ

@@ -2,11 +2,12 @@ import "normalize.css";
 import { allowedFoods, allowedFoodsEng } from "./src/data";
 import { getElemBySelector, hideElem, showElem } from "./src/domUtils";
 import {
+  currentLanguage,
   switchLanguage,
   updateFoodList,
-  currentLanguage,
 } from "./src/switchLang";
 import "./style.css";
+import { turnSound, getSoundState } from "./src/turnSound";
 
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
@@ -14,13 +15,20 @@ const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
 
+const isEnglish = (value) => value === "En";
+
 const score = getElemBySelector(".score").firstElementChild;
 export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
   let [text, curVal] = score.textContent.split(" ");
 
-  text = lang === "Ru" ? "Очки" : "Score";
+  text = isEnglish(lang) ? "Score" : "Очки";
   score.textContent = `${text} ${reset ? 0 : Number(curVal) + value}`;
 };
+
+const audioDiv = getElemBySelector(".audio");
+audioDiv.addEventListener("click", () => {
+  turnSound();
+});
 
 const darkPhone = getElemBySelector(".endOfGameBackground");
 
@@ -32,9 +40,10 @@ let coordinate = "";
 updateFoodList(currentLanguage, list);
 
 document.addEventListener("mousedown", handleMouseDown);
-let target = null;
 
+let target = null;
 let previousHippo = null;
+
 const showInitialHippo = () => {
   if (previousHippo === "yes") hideElem(hippoYes);
   if (previousHippo === "no") hideElem(hippoNo);
@@ -114,17 +123,17 @@ function includesTarget(coord) {
       showElem(hippoYes);
       previousHippo = "yes";
       setScore({ lang: currentLanguage, value: 10 });
-      audioYes.play();
+      getSoundState() && audioYes.play();
     } else {
       showElem(hippoNo);
       previousHippo = "no";
-      audioNo.play();
+      getSoundState() && audioNo.play();
     }
   }
 }
 
 function checkFood(food) {
-  return (currentLanguage === "Ru" ? allowedFoods : allowedFoodsEng).includes(
+  return (isEnglish(currentLanguage) ? allowedFoodsEng : allowedFoods).includes(
     food
   );
 }
@@ -147,22 +156,23 @@ const congratulationText = getElemBySelector(".congratulationWrap");
 const hippoEndOfGame = getElemBySelector(".hippoEndOfGame");
 const congratulationTextRu = getElemBySelector(".congratulationWrapRu");
 
-function closeSection() {
-  hideElem(sectionEndOfGame);
-  hideElem(darkPhone);
+function setVisibility(elementsToShow = [], elementsToHide = []) {
+  elementsToShow.forEach(showElem);
+  elementsToHide.forEach(hideElem);
+}
 
+function closeSection() {
   if (listOfAllowedFoodOpend) {
+    setVisibility([
+      isEnglish(currentLanguage) ? congratulationText : congratulationTextRu,
+      isEnglish(currentLanguage) ? foodAllowed : foodAllowedRu,
+      hippoEndOfGame,
+    ]);
     divlistOfAllowedFood.classList.toggle("active");
-    showElem(hippoEndOfGame);
     listOfAllowedFoodOpend = false;
-    if (currentLanguage === "En") {
-      showElem(congratulationText);
-      showElem(foodAllowed); //??
-    } else {
-      showElem(congratulationTextRu);
-      showElem(foodAllowedRu);
-    }
   }
+
+  setVisibility([], [sectionEndOfGame, darkPhone]);
   showInitialHippo();
 }
 
@@ -170,11 +180,17 @@ const controlPanel = getElemBySelector(".controlPanel");
 
 controlPanel.addEventListener("click", (event) => {
   if (event.target.classList.contains("controlPanelShowList")) {
-    hideElem(congratulationText);
-    hideElem(congratulationTextRu);
-    hideElem(hippoEndOfGame);
-    hideElem(foodAllowed); //?? проверить где лежит переменная
-    hideElem(foodAllowedRu);
+    setVisibility(
+      [],
+      [
+        congratulationText,
+        congratulationTextRu,
+        hippoEndOfGame,
+        foodAllowed,
+        foodAllowedRu,
+      ]
+    );
+
     listOfAllowedFoodOpend = true;
     divlistOfAllowedFood.classList.toggle("active");
   }
