@@ -19,6 +19,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  background-color: pink;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url("./assets/img/background.webp");
+  background-position: center;
+  background-repeat: no-repeat; /* Отключить повторение */
+  height: 100vh; /* Занять всю высоту окна */
+}
+
 ul {
   position: relative;
   display: flex;
@@ -31,8 +45,10 @@ ul {
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0 0;
-  padding-top: 8%;
+  margin-top: 14%;
   row-gap: 0.2rem;
+  min-height: 35.6%;
+  min-height: none;
 }
 
 .liView {
@@ -63,20 +79,6 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  background-color: pink;
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  width: 100vw;
-  background-image: url("./assets/img/background.webp");
-  background-position: center;
-  background-repeat: no-repeat; /* Отключить повторение */
-  height: 100vh; /* Занять всю высоту окна */
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -99,6 +101,8 @@ h1 {
   left: 3%;
   margin: 0 0;
   font-size: 1.4rem;
+  /* border: 2px solid red;
+  width: 100%; */
 }
 
 h2 {
@@ -108,16 +112,82 @@ h2 {
 .settings {
   position: fixed;
   top: 1%;
-  right: 1%;
+  right: 2%;
   margin: 0 0;
-  font-size: 1.4rem;
-  width: 12%;
+  font-size: 1.6rem;
+  width: 8%;
+  height: 8%;
   display: flex;
   flex-direction: row;
-  background-color: pink;
+  /* background-color: pink; */
   justify-content: space-between;
   align-items: center;
 }
+
+.buttonLang {
+  padding: 3% 3%;
+  height: 74%;
+  width: 40%;
+
+  /* width: 50%; */
+  /* border-radius: 50%; */
+  font-weight: 600;
+  color: #213547;
+
+  background-color: transparent;
+  /* border: 1px solid whitesmoke; */
+  border: 2px solid black;
+
+  transition: background-color 0.4s ease, box-shadow 0.6s ease;
+}
+
+.audio {
+  position: relative;
+  width: 40%;
+  height: 74%;
+}
+
+.volumeBtn {
+  /* position: absolute; */
+  /* padding: 3% 3%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid black;
+
+  width: 100%; /* Ширина кнопки */
+  height: 100%;
+  padding: 0;
+  transition: background-color 0.4s ease, box-shadow 0.6s ease;
+}
+
+.buttonLang:hover,
+/* .audio:hover, */
+.volumeBtn:hover {
+  background-color: rgba(235, 165, 158, 0.7);
+  box-shadow: -0.22rem 0.22rem 1px 1px inset rgba(135, 95, 91, 0.7);
+}
+
+.volumeBtn img {
+  background-color: transparent;
+
+  max-width: 80%; /* Ограничиваем ширину до размера кнопки */
+  max-height: 80%; /* Ограничиваем высоту до размера кнопки */
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(21%) saturate(1078%)
+    hue-rotate(166deg) brightness(95%) contrast(91%);
+  opacity: 0.8;
+  transition: filter 0.5s ease, opacity 0.5 ease;
+  width: 60%;
+  height: 60%;
+}
+
+/* .volumeBtn img:hover {
+  filter: brightness(0) saturate(100%) invert(89%) sepia(35%) saturate(847%)
+    hue-rotate(298deg) brightness(92%) contrast(102%);
+  opacity: 0.7;
+} */
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -138,11 +208,12 @@ h1 {
 
 .busket {
   position: relative;
-  width: 17rem;
-  height: 17rem;
+  width: 18rem;
+  height: 18rem;
   border-radius: 5px;
   margin: 0 auto;
-  margin-top: 14%;
+  margin-top: 8.6%;
+  border: 2px solid purple;
 }
 
 @keyframes float {
@@ -351,6 +422,8 @@ button:hover {
   column-gap: 1.4rem;
   padding-left: 7%;
   margin-bottom: 4%;
+  margin-top: 1.5%;
+  min-height: none;
 }
 
 .active h3 {
