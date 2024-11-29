@@ -25,15 +25,14 @@ export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
   score.textContent = `${text} ${reset ? 0 : Number(curVal) + value}`;
 };
 
+const audioYes = new Audio("./assets/audio/soundYes.mp3");
+const audioNo = new Audio("./assets/audio/soundNo.mp3");
 const audioDiv = getElemBySelector(".audio");
 audioDiv.addEventListener("click", () => {
   turnSound();
 });
 
 const darkPhone = getElemBySelector(".endOfGameBackground");
-
-const audioYes = new Audio("./assets/audio/soundYes.mp3");
-const audioNo = new Audio("./assets/audio/soundNo.mp3");
 let foodMouseDown = false;
 let coordinate = "";
 
@@ -48,6 +47,7 @@ const showInitialHippo = () => {
   if (previousHippo === "yes") hideElem(hippoYes);
   if (previousHippo === "no") hideElem(hippoNo);
   showElem(hippo);
+  previousHippo = null;
 };
 
 function handleMouseDown(e) {
@@ -94,7 +94,7 @@ function handleUp(e) {
     item.classList.contains("liView")
   );
 
-  if (collectionLength.length === 0) {
+  if (collectionLength.length === 0 && previousHippo) {
     const finalElem = getElemBySelector(".endOfGame");
     setTimeout(() => {
       showElem(finalElem);
@@ -146,7 +146,6 @@ const foodAllowedRu = getElemBySelector(".controlPanelShowListRu");
 
 const sectionEndOfGame = getElemBySelector(".endOfGame");
 const buttonCloseSectionEndOfGame = getElemBySelector(".btnClose");
-// const btnPlayAgain = getElemBySelector(".controlPanelplayAgain");
 const divlistOfAllowedFood = getElemBySelector(".listOfAllowedFood");
 let listOfAllowedFoodOpend = false;
 
