@@ -1,13 +1,12 @@
 import "normalize.css";
-import { allowedFoods, allowedFoodsEng } from "./src/data";
-import { getElemBySelector, hideElem, showElem } from "./src/domUtils";
-import {
-  currentLanguage,
-  switchLanguage,
-  updateFoodList,
-} from "./src/switchLang";
+import soundNo from "./assets/audio/soundNo.mp3";
+import soundYes from "./assets/audio/soundYes.mp3";
 import "./style.css";
-import { turnSound, getSoundState } from "./src/turnSound";
+
+import { allowedFoods, allowedFoodsEng } from "./data";
+import { getElemBySelector, hideElem, showElem } from "./domUtils";
+import { currentLanguage, switchLanguage, updateFoodList } from "./switchLang";
+import { getSoundState, turnSound } from "./turnSound";
 
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
@@ -25,8 +24,8 @@ export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
   score.textContent = `${text} ${reset ? 0 : Number(curVal) + value}`;
 };
 
-const audioYes = new Audio("./assets/audio/soundYes.mp3");
-const audioNo = new Audio("./assets/audio/soundNo.mp3");
+const audioYes = new Audio(soundYes);
+const audioNo = new Audio(soundNo);
 const audioDiv = getElemBySelector(".audio");
 audioDiv.addEventListener("click", () => {
   turnSound();

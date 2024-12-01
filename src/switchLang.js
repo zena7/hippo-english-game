@@ -1,6 +1,6 @@
 import { showElem, hideElem, getElemBySelector } from "./domUtils";
 import { mixedFood as mixed, mixedFoodEng as mixedEng } from "./data.js";
-import { setScore } from "../main.js";
+import { setScore } from "./main.js";
 
 let currentLanguage = "Ru";
 
