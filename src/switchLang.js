@@ -1,11 +1,14 @@
 import { showElem, hideElem, getElemBySelector } from "./domUtils";
 import { mixedFood as mixed, mixedFoodEng as mixedEng } from "./data.js";
-import { setScore } from "./main.js";
 
 let currentLanguage = "Ru";
+//тоже есть в main
+const isEnglish = (value) => value === "En";
 
-function switchLanguage(list) {
-  const controlPanelBtns = document.querySelectorAll(".controlPanelBtn");
+function switchLanguage(list, setScore) {
+  const [btnEn, btnRu, btnAgainEn, btnAgainRu] = Array.from(
+    document.querySelectorAll(".controlPanelBtn")
+  );
   const congratulationWrapRu = getElemBySelector(".congratulationWrapRu");
   const congratulationWrap = getElemBySelector(".congratulationWrap");
 
@@ -13,16 +16,24 @@ function switchLanguage(list) {
   updateFoodList(currentLanguage, list);
   setScore({ lang: currentLanguage });
 
-  for (let item of controlPanelBtns) {
-    item.classList.toggle("buttonHide");
-  }
+  // for (let item of controlPanelBtns) {
+  //   item.classList.toggle("buttonHide");
+  // }
 
-  if (currentLanguage === "En") {
+  if (isEnglish(currentLanguage)) {
     showElem(congratulationWrap);
     hideElem(congratulationWrapRu);
+    btnEn.classList.remove("buttonHide");
+    btnRu.classList.add("buttonHide");
+    btnAgainEn.classList.remove("buttonHide");
+    btnAgainRu.classList.add("buttonHide");
   } else {
     showElem(congratulationWrapRu);
     hideElem(congratulationWrap);
+    btnRu.classList.remove("buttonHide");
+    btnAgainRu.classList.remove("buttonHide");
+    btnEn.classList.add("buttonHide");
+    btnAgainEn.classList.add("buttonHide");
   }
 }
 

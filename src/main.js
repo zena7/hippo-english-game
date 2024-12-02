@@ -62,8 +62,9 @@ function handleMouseDown(e) {
       e.target.parentNode.classList.toggle("liView");
       target.classList.add("liView");
       e.target.style.visibility = "hidden";
+      // e.target.style.border = "1px solid purple";
       document.body.append(target);
-      target.style.padding = "0.5rem 0.5rem";
+      target.style.padding = "0.8rem 0.7rem";
       target.style.position = "absolute";
     } else {
       target = e.target;
@@ -138,9 +139,9 @@ function checkFood(food) {
 }
 
 const buttonLang = getElemBySelector(".buttonLang");
-buttonLang.addEventListener("click", () => switchLanguage(list));
+buttonLang.addEventListener("click", () => switchLanguage(list, setScore));
 
-const foodAllowed = getElemBySelector(".controlPanelShowList");
+const foodAllowedEn = getElemBySelector(".controlPanelShowListEn");
 const foodAllowedRu = getElemBySelector(".controlPanelShowListRu");
 
 const sectionEndOfGame = getElemBySelector(".endOfGame");
@@ -154,6 +155,8 @@ const congratulationText = getElemBySelector(".congratulationWrap");
 const hippoEndOfGame = getElemBySelector(".hippoEndOfGame");
 const congratulationTextRu = getElemBySelector(".congratulationWrapRu");
 
+//выложить бы в отдельный файл
+//тупо работа с данными
 function setVisibility(elementsToShow = [], elementsToHide = []) {
   elementsToShow.forEach(showElem);
   elementsToHide.forEach(hideElem);
@@ -163,9 +166,18 @@ function closeSection() {
   if (listOfAllowedFoodOpend) {
     setVisibility([
       isEnglish(currentLanguage) ? congratulationText : congratulationTextRu,
-      isEnglish(currentLanguage) ? foodAllowed : foodAllowedRu,
+      // isEnglish(currentLanguage) ? foodAllowedEn : foodAllowedRu,
       hippoEndOfGame,
     ]);
+
+    if (isEnglish(currentLanguage)) {
+      foodAllowedEn.classList.remove("buttonHide");
+      foodAllowedRu.classList.add("buttonHide");
+    } else {
+      foodAllowedRu.classList.remove("buttonHide");
+      foodAllowedEn.classList.add("buttonHide");
+    }
+
     divlistOfAllowedFood.classList.toggle("active");
     listOfAllowedFoodOpend = false;
   }
@@ -184,10 +196,13 @@ controlPanel.addEventListener("click", (event) => {
         congratulationText,
         congratulationTextRu,
         hippoEndOfGame,
-        foodAllowed,
-        foodAllowedRu,
+        // foodAllowedEn,
+        // foodAllowedRu,
       ]
     );
+
+    foodAllowedEn.classList.add("buttonHide");
+    foodAllowedRu.classList.add("buttonHide");
 
     listOfAllowedFoodOpend = true;
     divlistOfAllowedFood.classList.toggle("active");
