@@ -1,22 +1,22 @@
-import { getElemBySelector, hideElem, showElem } from "./domUtils";
-const soundsBtns = document.querySelectorAll(".volumeBtn");
+import { actWithClassHide, getElemBySelector } from "./domUtils";
+import { isThereSound, setIsThereSound } from "./state";
 
-export let isThereSound = true;
-
-export function turnSound() {
+function turnSound() {
   const btnSoundOn = getElemBySelector(".volumeYes");
   const btnSoundNo = getElemBySelector(".volumeNo");
 
-  isThereSound = !isThereSound;
+  setIsThereSound(!isThereSound);
   if (isThereSound) {
-    btnSoundOn.classList.remove("buttonHide");
-    btnSoundNo.classList.add("buttonHide");
+    actWithClassHide({ node: btnSoundOn, act: "remove" });
+    actWithClassHide({ node: btnSoundNo });
   } else {
-    btnSoundNo.classList.remove("buttonHide");
-    btnSoundOn.classList.add("buttonHide");
+    actWithClassHide({ node: btnSoundNo, act: "remove" });
+    actWithClassHide({ node: btnSoundOn });
   }
 }
 
-export function getSoundState() {
-  return isThereSound;
-}
+// export function getSoundState() {
+//   return isThereSound;
+// }
+
+export { turnSound };

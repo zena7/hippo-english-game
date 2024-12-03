@@ -5,8 +5,11 @@ import "./style.css";
 
 import { allowedFoods, allowedFoodsEng } from "./data";
 import { getElemBySelector, hideElem, showElem } from "./domUtils";
-import { currentLanguage, switchLanguage, updateFoodList } from "./switchLang";
-import { getSoundState, turnSound } from "./turnSound";
+import { switchLanguage, isEnglish } from "./switchLang";
+import { currentLanguage } from "./state.js";
+import { turnSound } from "./turnSound";
+import { isThereSound } from "./state.js";
+import { mixedFood as mixed, mixedFoodEng as mixedEng } from "./data.js";
 
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
@@ -14,7 +17,7 @@ const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
 
-const isEnglish = (value) => value === "En";
+// const isEnglish = (value) => value === "En";
 
 const score = getElemBySelector(".score").firstElementChild;
 export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
@@ -23,6 +26,18 @@ export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
   text = isEnglish(lang) ? "Score" : "Очки";
   score.textContent = `${text} ${reset ? 0 : Number(curVal) + value}`;
 };
+
+function updateFoodList(lang, list) {
+  let food = isEnglish(lang) ? mixedEng : mixed;
+
+  list.innerHTML = "";
+  food.forEach((item) => {
+    list.insertAdjacentHTML(
+      "beforeend",
+      `<li class="liView"><h1 data-species="${item}" >${item}</h1></li>`
+    );
+  });
+}
 
 const audioYes = new Audio(soundYes);
 const audioNo = new Audio(soundNo);
@@ -123,11 +138,11 @@ function includesTarget(coord) {
       showElem(hippoYes);
       previousHippo = "yes";
       setScore({ lang: currentLanguage, value: 10 });
-      getSoundState() && audioYes.play();
+      isThereSound && audioYes.play();
     } else {
       showElem(hippoNo);
       previousHippo = "no";
-      getSoundState() && audioNo.play();
+      isThereSound && audioNo.play();
     }
   }
 }
@@ -139,7 +154,9 @@ function checkFood(food) {
 }
 
 const buttonLang = getElemBySelector(".buttonLang");
-buttonLang.addEventListener("click", () => switchLanguage(list, setScore));
+buttonLang.addEventListener("click", () =>
+  switchLanguage(list, setScore, updateFoodList)
+);
 
 const foodAllowedEn = getElemBySelector(".controlPanelShowListEn");
 const foodAllowedRu = getElemBySelector(".controlPanelShowListRu");
@@ -166,7 +183,6 @@ function closeSection() {
   if (listOfAllowedFoodOpend) {
     setVisibility([
       isEnglish(currentLanguage) ? congratulationText : congratulationTextRu,
-      // isEnglish(currentLanguage) ? foodAllowedEn : foodAllowedRu,
       hippoEndOfGame,
     ]);
 
@@ -192,13 +208,7 @@ controlPanel.addEventListener("click", (event) => {
   if (event.target.classList.contains("controlPanelShowList")) {
     setVisibility(
       [],
-      [
-        congratulationText,
-        congratulationTextRu,
-        hippoEndOfGame,
-        // foodAllowedEn,
-        // foodAllowedRu,
-      ]
+      [congratulationText, congratulationTextRu, hippoEndOfGame]
     );
 
     foodAllowedEn.classList.add("buttonHide");
