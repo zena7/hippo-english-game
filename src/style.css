@@ -18,6 +18,7 @@
 }
 
 body {
+  overflow: hidden;
   background-color: pink;
   margin: 0 auto;
   display: flex;
@@ -51,8 +52,6 @@ ul {
   row-gap: 0.8rem;
   column-gap: 0.4rem;
   min-height: 35.6%;
-  /* min-height: none; */
-  border: 1px solid palevioletred;
 }
 
 @media (min-width: 1441px) {
@@ -62,10 +61,18 @@ ul {
   }
 }
 
-@media (max-width: 1199px) and (min-width: 768px) {
+@media (max-width: 1250px) and (min-width: 920px) {
   ul {
     row-gap: 0.6rem;
-    margin-bottom: calc(0.2rem + 2vh);
+    margin-bottom: calc(0.2rem + 4vh);
+  }
+}
+
+@media (max-width: 919px) and (min-width: 768px) {
+  ul {
+    row-gap: 0.6rem;
+    margin-bottom: calc(0.2rem + 6vh);
+    margin-top: 16%;
   }
 }
 
@@ -113,6 +120,20 @@ h1 {
   text-align: center;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+@media (max-width: 1119px) and (min-width: 768px) {
+  #app {
+    width: 78%;
+    /* margin-bottom: calc(0.2rem + 4vh); */
+  }
+}
+
+@media (max-width: 767px) and (min-width: 480px) {
+  #app {
+    width: 86%;
+    /* margin-bottom: calc(0.2rem + 4vh); */
+  }
 }
 
 .header {
@@ -235,8 +256,6 @@ h1 {
   height: clamp(12rem, 15rem, 18rem);
   border-radius: 5px;
   margin: 0 auto;
-  /* margin-top: 8.6%; */
-  border: 2px solid purple;
 }
 
 @keyframes float {
@@ -261,7 +280,6 @@ h1 {
 
 .busket .hippo {
   width: 100%;
-  /* height: 90%; */
   object-fit: contain;
   position: absolute;
   top: 5%;
@@ -351,6 +369,26 @@ button:hover {
     shadow-move-end-game 10s ease-in-out infinite;
 }
 
+@media (min-width: 1441px) {
+  .hippoEndOfGame {
+    margin-top: 2%;
+  }
+}
+
+@media (max-width: 1250px) and (min-width: 920px) {
+  .hippoEndOfGame {
+    margin-top: 2%;
+    width: 52%;
+  }
+}
+
+@media (max-width: 919px) and (min-width: 768px) {
+  .hippoEndOfGame {
+    margin-top: 2%;
+    width: 56%;
+  }
+}
+
 .congratulation {
   font-size: 1.6rem;
 }
@@ -361,7 +399,8 @@ button:hover {
 }
 
 .controlPanel {
-  width: 100%;
+  position: relative;
+  width: 98%;
   font-size: 1.6rem;
   display: flex;
   flex-direction: row;
@@ -369,6 +408,31 @@ button:hover {
   justify-content: center;
   column-gap: 1.8rem;
   z-index: 2;
+  margin: 0 auto;
+}
+
+@media (min-width: 1441px) {
+  .controlPanel {
+    /* margin-top: 2%; */
+  }
+}
+
+@media (max-width: 1250px) and (min-width: 920px) {
+  .controlPanel {
+    /* margin-top: 2%;
+    width: 58%; */
+  }
+}
+
+@media (max-width: 919px) and (min-width: 768px) {
+  .controlPanel {
+    top: -5%;
+    width: 78%;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: calc(0.6rem + 1vh);
+    align-items: stretch;
+  }
 }
 
 .controlPanel button {
@@ -378,6 +442,12 @@ button:hover {
   color: #213547;
   transition: background-color 0.5s ease;
   border: 2px solid pink;
+}
+
+@media (max-width: 919px) and (min-width: 768px) {
+  .controlPanel button {
+    padding: 2.8% 2%;
+  }
 }
 
 .buttonHide {
@@ -430,6 +500,24 @@ button:hover {
   padding-top: 6%;
 }
 
+@media (min-width: 1441px) {
+  .active {
+    padding-top: 8%;
+  }
+}
+
+@media (max-width: 1250px) and (min-width: 920px) {
+  .active {
+    padding-top: 8%;
+  }
+}
+
+@media (max-width: 919px) and (min-width: 768px) {
+  .active {
+    padding-top: 8%;
+  }
+}
+
 .active h2 {
   font-size: 2.8rem;
 }
@@ -440,13 +528,34 @@ button:hover {
   width: 100%;
   height: 100%;
   justify-content: start;
-  padding-top: 1rem;
+  padding-top: calc(1rem + 1vh);
   row-gap: 1rem;
   column-gap: 1.4rem;
   padding-left: 7%;
-  margin-bottom: 4%;
+  margin-bottom: calc(4% + 1vh);
   margin-top: 1.5%;
   min-height: none;
+}
+
+@media (min-width: 1441px) {
+  .active ul {
+    row-gap: 0.6rem;
+    margin-bottom: calc(0.2rem + 10vh);
+  }
+}
+
+@media (max-width: 1250px) and (min-width: 920px) {
+  .active ul {
+    row-gap: 0.6rem;
+    margin-bottom: calc(0.2rem + 4vh);
+  }
+}
+
+@media (max-width: 919px) and (min-width: 768px) {
+  .active ul {
+    row-gap: 0.6rem;
+    margin-bottom: calc(0.2rem + 6vh);
+  }
 }
 
 .active h3 {
