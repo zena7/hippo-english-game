@@ -10,6 +10,7 @@ import { currentLanguage } from "./state.js";
 import { turnSound } from "./turnSound";
 import { isThereSound } from "./state.js";
 import { mixedFood as mixed, mixedFoodEng as mixedEng } from "./data.js";
+import { createFirefly } from "./firefly.js";
 
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
@@ -19,6 +20,7 @@ const hippoNo = getElemBySelector(".hippoNo");
 
 // const isEnglish = (value) => value === "En";
 
+createFirefly();
 const score = getElemBySelector(".score").firstElementChild;
 export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
   let [text, curVal] = score.textContent.split(" ");
@@ -71,6 +73,10 @@ function handleMouseDown(e) {
     foodMouseDown = true;
     showInitialHippo();
 
+    const rect = e.target.getBoundingClientRect(); // Получаем размер и позицию исходного элемента
+    const offsetX = e.pageX - rect.left; // Смещение мыши по X
+    const offsetY = e.pageY - rect.top; // Смещение мыши по Y
+
     if (!e.target.classList.contains("duplicate")) {
       target = e.target.cloneNode(true);
       target.classList.add("duplicate");
@@ -78,12 +84,17 @@ function handleMouseDown(e) {
       target.classList.add("liView");
       e.target.style.visibility = "hidden";
       // e.target.style.border = "1px solid purple";
+      target.style.left = `${e.pageX - offsetX}px`; // Используем смещение для начальной позиции
+      target.style.top = `${e.pageY - offsetY}px`;
       document.body.append(target);
       target.style.padding = "0.8rem 0.7rem";
       target.style.position = "absolute";
     } else {
       target = e.target;
     }
+
+    target.dataset.offsetX = offsetX;
+    target.dataset.offsetY = offsetY;
 
     document.addEventListener("mousemove", handleMove);
     document.addEventListener("mouseup", handleUp, { once: true });
@@ -94,8 +105,12 @@ function handleMove(e) {
   e.preventDefault();
 
   if (foodMouseDown) {
-    target.style.left = `${e.pageX - target.offsetWidth / 2}px`;
-    target.style.top = `${e.pageY - target.offsetHeight / 2}px`;
+    // target.style.left = `${e.pageX - target.offsetWidth / 2}px`;
+    // target.style.top = `${e.pageY - target.offsetHeight / 2}px`;
+    const offsetX = parseFloat(target.dataset.offsetX); // Получаем сохранённое смещение
+    const offsetY = parseFloat(target.dataset.offsetY);
+    target.style.left = `${e.pageX - offsetX}px`;
+    target.style.top = `${e.pageY - offsetY}px`;
   }
 }
 
