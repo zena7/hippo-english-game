@@ -20,41 +20,130 @@
 body {
   overflow: hidden;
   background-color: pink;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   min-width: 320px;
-  /* max-width: 1441px; */
-  min-height: 100vh;
-  /* max-height: 100vh; */
+  max-width: 1441px; /*оставить или нет это свойство???? */
   width: 100vw;
   background-image: url("./assets/img/background.webp");
-  /* object-fit: contain; */
   background-position: center;
-  background-repeat: no-repeat; /* Отключить повторение */
-  height: 100vh; /* Занять всю высоту окна */
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1920px) {
+  body {
+    background-image: url("./assets/img/background_1920x1080.webp");
+  }
+}
+@media (min-width: 2560px) {
+  body {
+    background-image: url("./assets/img/background_2560x1080.webp");
+  }
+}
+
+@media (min-width: 3440px) {
+  body {
+    background-image: url("./assets/img/background_3440x1440.webp");
+  }
+}
+
+.header,
+footer {
+  max-width: inherit;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 2.6%;
+  padding-right: 2.6%;
+  margin: 0 0;
+}
+
+.header {
+  flex: 2;
+  min-height: 2rem;
+  flex-direction: row;
+  font-size: 1.4rem;
+  /* background-color: palevioletred; */
+}
+
+main {
+  position: relative;
+  max-width: 1280px;
+  width: 62%;
+  flex: 7;
+  margin: 0 0;
+  text-align: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  /* background-color: #535bf2; */
+}
+
+@media (max-width: 1119px) and (min-width: 768px) {
+  main {
+    width: 78%;
+    /* margin-bottom: calc(0.2rem + 4vh); */
+  }
+}
+
+@media (max-width: 767px) and (min-width: 480px) {
+  main {
+    width: 86%;
+    /* margin-bottom: calc(0.2rem + 4vh); */
+  }
+}
+
+footer {
+  /* background-color: peru; */
+  justify-content: end;
+  min-height: 2rem;
+  flex: 1;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin: 0;
+  padding: 0.8rem 0.7rem;
+}
+
+h2 {
+  margin: 0 0;
+}
+
+.score {
+  /* border: 2px solid fuchsia; */
+  /* width: 10%; */
 }
 
 ul {
+  margin: 0 0;
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: calc(0.2rem + 8vh);
+  /* margin-bottom: calc(0.2rem + 8vh); */
   margin-left: auto;
   margin-right: auto;
   flex-wrap: wrap;
   align-items: baseline;
   list-style-type: none;
   padding: 0 0;
-  margin-top: 14%;
+  /* margin-top: 14%; */
   row-gap: 0.8rem;
   column-gap: 0.4rem;
   min-height: 35.6%;
 }
 
-@media (min-width: 1441px) {
+/* @media (min-width: 1441px) {
   ul {
     row-gap: 0.6rem;
     margin-bottom: calc(0.2rem + 10vh);
@@ -75,7 +164,7 @@ ul {
     margin-bottom: calc(0.1rem + 1.5vh);
     margin-top: 16%;
   }
-}
+} */
 
 .liView {
   /* margin-bottom: 1%;
@@ -96,117 +185,50 @@ ul {
   border-radius: 5px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  margin: 0;
-  padding: 0.8rem 0.7rem;
-}
-
-#app {
-  position: relative;
-  max-width: 1280px;
-  width: 62%;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-@media (max-width: 1119px) and (min-width: 768px) {
-  #app {
-    width: 78%;
-    /* margin-bottom: calc(0.2rem + 4vh); */
-  }
-}
-
-@media (max-width: 767px) and (min-width: 480px) {
-  #app {
-    width: 86%;
-    /* margin-bottom: calc(0.2rem + 4vh); */
-  }
-}
-
-.header {
-  position: fixed;
-  top: 1%;
-  left: 3%;
-  margin: 0 0;
-  font-size: 1.4rem;
-  /* border: 2px solid red;
-  width: 100%; */
-}
-
-h2 {
-  margin: 0 0;
-}
-
 .settings {
-  position: fixed;
-  top: 1%;
-  right: 2%;
-  margin: 0 0;
   font-size: 1.6rem;
-  width: 8%;
-  height: 8%;
+  height: calc((100% / 4) * 2);
+  /* width: height; */
+  aspect-ratio: 2/1;
   display: flex;
   flex-direction: row;
-  /* background-color: pink; */
   justify-content: space-between;
   align-items: center;
 }
 
-.buttonLang {
-  padding: 3% 3%;
-  height: 74%;
-  width: 40%;
+.settings button {
+  padding: 0;
+  background-color: transparent;
+  border: 2px solid #213547;
+  opacity: 0.8;
+  transition: background-color 0.4s ease, box-shadow 0.6s ease;
+}
 
-  /* width: 50%; */
-  /* border-radius: 50%; */
+.buttonLang {
   font-weight: 600;
   color: #213547;
-
-  background-color: transparent;
-  /* border: 1px solid whitesmoke; */
-  border: 2px solid black;
-
-  transition: background-color 0.4s ease, box-shadow 0.6s ease;
+  height: 80%;
+  aspect-ratio: 1/1;
 }
 
 .audio {
   position: relative;
-  width: 40%;
-  height: 74%;
+  height: 80%;
+  aspect-ratio: 1/1;
 }
 
 .volumeBtn {
-  /* position: absolute; */
-  /* padding: 3% 3%; */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
-  border: 2px solid black;
 
-  width: 100%; /* Ширина кнопки */
+  width: 100%;
   height: 100%;
-  padding: 0;
-  transition: background-color 0.4s ease, box-shadow 0.6s ease;
 }
 
 .buttonLang:hover,
-/* .audio:hover, */
-.volumeBtn:hover {
+.volumeBtn:hover,
+.contactGithub:hover {
   background-color: rgba(235, 165, 158, 0.7);
   box-shadow: -0.22rem 0.22rem 1px 1px inset rgba(135, 95, 91, 0.7);
 }
@@ -216,10 +238,9 @@ h2 {
 
   max-width: 80%; /* Ограничиваем ширину до размера кнопки */
   max-height: 80%; /* Ограничиваем высоту до размера кнопки */
-  object-fit: contain;
+  /* object-fit: contain; */
   filter: brightness(0) saturate(100%) invert(17%) sepia(21%) saturate(1078%)
     hue-rotate(166deg) brightness(95%) contrast(91%);
-  opacity: 0.8;
   transition: filter 0.5s ease, opacity 0.5 ease;
   width: 60%;
   height: 60%;
@@ -646,4 +667,32 @@ button:hover {
   50% {
     opacity: 0.4;
   }
+}
+
+.contactGithub {
+  position: relative;
+  height: 70%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #213547;
+  opacity: 0.8;
+  transition: background-color 0.4s ease, box-shadow 0.6s ease;
+}
+
+.contactGithub a {
+  margin: 0 0;
+  display: block;
+}
+
+.gitIcon {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+
+  filter: brightness(0) saturate(100%) invert(15%) sepia(5%) saturate(5271%)
+    hue-rotate(168deg) brightness(99%) contrast(87%);
 }
