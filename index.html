@@ -16,13 +16,10 @@
     <title>Hippo</title>
   </head>
   <body>
-    <div id="app">
-      <div class="firefly-container"></div>
-      <header class="header">
-        <div class="score">
-          <h2>Очки 0</h2>
-        </div>
-      </header>
+    <header class="header">
+      <div class="score">
+        <h2>Очки 0</h2>
+      </div>
       <div class="settings">
         <button type="button" class="buttonLang" value="ru">
           <span class="language" value="ru">Ru</span>
@@ -36,6 +33,9 @@
           </button>
         </div>
       </div>
+    </header>
+    <main>
+      <div class="firefly-container"></div>
       <ul class="food"></ul>
       <div class="busket">
         <img src="./src/assets/img/hippo-hi.png" alt="hippo" class="hippo" />
@@ -111,9 +111,16 @@
           </button>
         </div>
       </section>
-    </div>
+    </main>
     <footer>
-      <a href="https://github.com/zena7"><img src="" alt="" /></a>
+      <div class="contactGithub">
+        <a href="https://github.com/zena7" target="_blank"
+          ><img
+            src="./src/assets/svg/github.svg"
+            alt="githubIcon"
+            class="gitIcon"
+        /></a>
+      </div>
     </footer>
     <script type="module" src="./src/main.js"></script>
   </body>
