@@ -673,17 +673,18 @@ button:hover {
   position: relative;
   height: 70%;
   aspect-ratio: 1/1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: 2px solid #213547;
   opacity: 0.8;
   transition: background-color 0.4s ease, box-shadow 0.6s ease;
 }
 
 .contactGithub a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1/1;
   margin: 0 0;
-  display: block;
 }
 
 .gitIcon {
@@ -692,6 +693,7 @@ button:hover {
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  pointer-events: none;
 
   filter: brightness(0) saturate(100%) invert(15%) sepia(5%) saturate(5271%)
     hue-rotate(168deg) brightness(99%) contrast(87%);
