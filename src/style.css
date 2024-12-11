@@ -589,11 +589,40 @@ button:hover {
     height: 80%;
   }
 
+  .congratulationWrap,
+  .congratulationWrapRu {
+    padding-top: 3%;
+  }
+
+  .active ul {
+    padding-top: calc(0.4rem + 1vh);
+    margin-bottom: calc(0.2rem + 1vh);
+  }
+
   /* .header,
   footer {
     padding-left: 0%;
     padding-right: 0%;
   } */
+}
+
+@media (min-width: 1441px) {
+  .hippoEndOfGame {
+    margin-top: 2%;
+  }
+
+  .controlPanel {
+    /* margin-top: 2%; */
+  }
+
+  .active {
+    padding-top: 5%;
+  }
+
+  .active ul {
+    row-gap: 0.6rem;
+    margin-bottom: calc(0.2rem + 10vh);
+  }
 }
 
 @media (min-width: 2560px) and (max-width: 4000px) {
@@ -642,25 +671,6 @@ button:hover {
 
   ul {
     row-gap: 0.6rem;
-  }
-}
-
-@media (min-width: 1441px) {
-  .hippoEndOfGame {
-    margin-top: 2%;
-  }
-
-  .controlPanel {
-    /* margin-top: 2%; */
-  }
-
-  .active {
-    padding-top: 8%;
-  }
-
-  .active ul {
-    row-gap: 0.6rem;
-    margin-bottom: calc(0.2rem + 10vh);
   }
 }
 
@@ -721,5 +731,14 @@ button:hover {
 
   .busket .hippo {
     width: 90%;
+  }
+
+  .congratulationWrap,
+  .congratulationWrapRu {
+    padding-top: 2%;
+  }
+
+  .hippoEndOfGame {
+    width: 34%;
   }
 }
