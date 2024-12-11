@@ -231,6 +231,7 @@ controlPanel.addEventListener("click", (event) => {
 
     listOfAllowedFoodOpend = true;
     divlistOfAllowedFood.classList.toggle("active");
+    controlPanel.style.top = "1%";
   }
 
   if (event.target.classList.contains("controlPanelplayAgain")) {
@@ -240,3 +241,11 @@ controlPanel.addEventListener("click", (event) => {
     setScore({ lang: currentLanguage, reset: true });
   }
 });
+
+//разрешение экрана 800 на 600 - фигня
+//с высоты 760 - кнопка языка выходит за границы
+//с высоты 688 - футер исчезает, уходит за границу экрана
+//
+
+//меню завершения игры на русском языке помещается целиком в высоту 665
+// на английском языке - кнопки внизу выходят ха границу меню
