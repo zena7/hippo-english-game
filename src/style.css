@@ -327,7 +327,7 @@ button:hover {
 
 .hippoEndOfGame {
   position: relative;
-  width: 40%;
+  width: calc(30% + 4vh);
   margin: 0 auto;
   animation: float 10s ease-in-out infinite,
     shadow-move-end-game 10s ease-in-out infinite;
@@ -739,6 +739,14 @@ button:hover {
   }
 
   .hippoEndOfGame {
-    width: 34%;
+    width: calc(30% + 4vh);
+  }
+
+  .controlPanel {
+    top: calc(-1% - 1vh);
+  }
+
+  .controlPanel button {
+    padding: 1% 2%;
   }
 }
