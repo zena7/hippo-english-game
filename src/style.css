@@ -22,15 +22,15 @@ html {
 }
 
 body {
+  opacity: 0;
+  visibility: hidden;
   overflow: hidden;
-  background-color: pink;
-  /* margin: 0 auto; */
+  background-color: #ffc0c9;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   min-width: 320px;
-  /* max-width: 1441px; оставить или нет это свойство???? */
   width: 100vw;
   background-image: url("./assets/img/background.webp");
   background-position: center;
@@ -38,6 +38,12 @@ body {
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
+  transition: opacity 5s ease;
+}
+
+body.loaded {
+  opacity: 1;
+  visibility: visible;
 }
 
 .header,
@@ -52,8 +58,7 @@ footer {
   padding-right: 2.6%;
   margin: 0 0;
   min-height: 2rem;
-  /* background-color: palevioletred; */
-  max-width: 1441px; /*оставить или нет это свойство???? */
+  max-width: 1441px;
 }
 
 .header {
@@ -72,7 +77,6 @@ main {
   text-align: center;
   padding-top: 2%;
   padding-bottom: 0;
-  /* background-color: #535bf2; */
   flex-direction: column;
   display: flex;
   justify-content: space-between;
@@ -80,11 +84,9 @@ main {
 }
 
 footer {
-  /* background-color: peru; */
   justify-content: end;
   align-items: start;
   flex: 0.6;
-  /* background-color: palevioletred; */
 }
 
 h1 {
@@ -96,11 +98,6 @@ h1 {
 
 h2 {
   margin: 0 0;
-}
-
-.score {
-  /* border: 2px solid fuchsia; */
-  /* width: 10%; */
 }
 
 ul {
@@ -117,7 +114,6 @@ ul {
   align-items: baseline;
   list-style-type: none;
   padding: 0 0;
-  /* margin-top: 14%; */
   row-gap: 0.8rem;
   column-gap: 0.4rem;
   min-height: 35.6%;
@@ -182,7 +178,7 @@ ul {
 .buttonLang:hover,
 .volumeBtn:hover,
 .contactGithub:hover {
-  background-color: rgba(235, 165, 158, 0.7);
+  background-color: rgba(235, 165, 158, 0.8);
   box-shadow: -0.22rem 0.22rem 1px 1px inset rgba(135, 95, 91, 0.7);
 }
 
@@ -270,10 +266,11 @@ h1:hover,
 h1:active,
 button:hover {
   cursor: pointer;
+  opacity: 1;
 }
 
 .liView:hover {
-  background-color: rgba(236, 166, 160, 0.7);
+  background-color: rgba(236, 166, 160, 0.8);
 }
 
 .endOfGameBackground {
@@ -461,10 +458,10 @@ button:hover {
   left: 0;
   top: 20%;
   transform: translateX(-90%);
-  width: 1.6rem; /* Ширина маркера */
+  width: 1.6rem;
   height: 1.6rem;
   background-image: url("./assets/svg/marker.svg");
-  background-size: contain; /* Масштабирование */
+  background-size: contain;
   background-repeat: no-repeat;
   filter: brightness(0) saturate(100%) invert(88%) sepia(30%) saturate(529%)
     hue-rotate(13deg) brightness(104%) contrast(94%);
@@ -567,8 +564,8 @@ button:hover {
 
   body {
     background-image: url("./assets/img/background_1920x1080.webp");
-    /* font-size: 18px; */
   }
+
   .header,
   footer {
     padding-left: 0%;
@@ -598,21 +595,11 @@ button:hover {
     padding-top: calc(0.4rem + 1vh);
     margin-bottom: calc(0.2rem + 1vh);
   }
-
-  /* .header,
-  footer {
-    padding-left: 0%;
-    padding-right: 0%;
-  } */
 }
 
 @media (min-width: 1441px) {
   .hippoEndOfGame {
     margin-top: 2%;
-  }
-
-  .controlPanel {
-    /* margin-top: 2%; */
   }
 
   .active {
@@ -645,28 +632,21 @@ button:hover {
 @media (max-width: 1119px) and (min-width: 768px), (max-height: 730px) {
   main {
     width: 78%;
-    /* margin-bottom: calc(0.2rem + 4vh); */
   }
 
   .settings {
     height: 70%;
     font-size: 1.4rem;
-    /* width: 78%; */
-    /* margin-bottom: calc(0.2rem + 4vh); */
   }
 }
 
 @media (max-width: 767px) and (min-width: 480px) {
   main {
     width: 88%;
-    /* margin-bottom: calc(0.2rem + 4vh); */
   }
 
   .settings {
     height: 90%;
-
-    /* width: 86%; */
-    /* margin-bottom: calc(0.2rem + 4vh); */
   }
 
   ul {
@@ -676,13 +656,7 @@ button:hover {
 
 @media (max-width: 1250px) and (min-width: 920px) {
   .hippoEndOfGame {
-    /* margin-top: 2%; */
     width: 48%;
-  }
-
-  .controlPanel {
-    /* margin-top: 2%;
-    width: 58%; */
   }
 
   .active {
@@ -701,7 +675,6 @@ button:hover {
   }
 
   .hippoEndOfGame {
-    /* margin-top: 2%; */
     width: 56%;
   }
 

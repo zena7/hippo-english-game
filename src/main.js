@@ -1,16 +1,18 @@
 import "normalize.css";
-import soundNo from "./assets/audio/soundNo.mp3";
-import soundYes from "./assets/audio/soundYes.mp3";
 import "./style.css";
 
 import { allowedFoods, allowedFoodsEng } from "./data";
-import { getElemBySelector, hideElem, showElem } from "./domUtils";
+import {
+  getElemBySelector,
+  hideElem,
+  showElem,
+  getArrayOfElems,
+} from "./domUtils";
 import { switchLanguage, isEnglish } from "./switchLang";
-import { currentLanguage } from "./state.js";
+import { currentLanguage, name } from "./state.js";
 import { turnSound } from "./turnSound";
 import { isThereSound } from "./state.js";
 import { mixedFood as mixed, mixedFoodEng as mixedEng } from "./data.js";
-import { createFirefly } from "./firefly.js";
 
 const busket = getElemBySelector(".busket");
 const list = getElemBySelector(".food");
@@ -18,9 +20,6 @@ const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
 
-// const isEnglish = (value) => value === "En";
-
-createFirefly();
 const score = getElemBySelector(".score").firstElementChild;
 export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
   let [text, curVal] = score.textContent.split(" ");
@@ -41,12 +40,36 @@ function updateFoodList(lang, list) {
   });
 }
 
-const audioYes = new Audio(soundYes);
-const audioNo = new Audio(soundNo);
+let audioYes, audioNo;
+
+async function loadAudio() {
+  const [soundYesModule, soundNoModule] = await Promise.all([
+    import("./assets/audio/soundYes.mp3"),
+    import("./assets/audio/soundNo.mp3"),
+  ]);
+
+  audioYes = new Audio(soundYesModule.default);
+  audioNo = new Audio(soundNoModule.default);
+}
+
+window.addEventListener("load", loadAudio);
+
 const audioDiv = getElemBySelector(".audio");
-audioDiv.addEventListener("click", () => {
+audioDiv.addEventListener("click", async () => {
+  if (!audioYes || !audioNo) await loadAudio();
   turnSound();
 });
+
+function setUserName(name) {
+  const congratulationsArray = getArrayOfElems(".nameFromStorage");
+
+  congratulationsArray.forEach((item) => {
+    let [text, _] = item.textContent.split("!");
+    item.textContent = `${text}, ${name ?? ""}!`;
+  });
+}
+
+setUserName(name);
 
 const darkPhone = getElemBySelector(".endOfGameBackground");
 let foodMouseDown = false;
@@ -187,8 +210,6 @@ const congratulationText = getElemBySelector(".congratulationWrap");
 const hippoEndOfGame = getElemBySelector(".hippoEndOfGame");
 const congratulationTextRu = getElemBySelector(".congratulationWrapRu");
 
-//выложить бы в отдельный файл
-//тупо работа с данными
 function setVisibility(elementsToShow = [], elementsToHide = []) {
   elementsToShow.forEach(showElem);
   elementsToHide.forEach(hideElem);
@@ -242,10 +263,20 @@ controlPanel.addEventListener("click", (event) => {
   }
 });
 
-//разрешение экрана 800 на 600 - фигня
-//с высоты 760 - кнопка языка выходит за границы
-//с высоты 688 - футер исчезает, уходит за границу экрана
-//
+window.addEventListener("load", async () => {
+  const { createFirefly } = await import("./firefly.js");
+  createFirefly();
+});
 
-//меню завершения игры на русском языке помещается целиком в высоту 665
-// на английском языке - кнопки внизу выходят ха границу меню
+console.log(
+  "User name is",
+  window.localStorage.getItem("userName") ?? "unknown"
+);
+
+window.addEventListener("load", () => {
+  // setTimeout(() => {
+  //   document.body.classList.add("loaded");
+  // }, 1050);
+  document.body.classList.add("loaded");
+  console.log("Page is loaded");
+});

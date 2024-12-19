@@ -1,4 +1,6 @@
-export const getElemBySelector = (elem) => document.querySelector(elem);
+export const getElemBySelector = (selector) => document.querySelector(selector);
+export const getArrayOfElems = (selector) =>
+  Array.from(document.querySelectorAll(selector));
 export const hideElem = (elem) => (elem.style.display = "none");
 export const showElem = (elem) => (elem.style.display = "block");
 
