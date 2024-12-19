@@ -2,126 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      href="./src/assets/img/flaticon-hippo-16.ico"
-      sizes="16x16"
-      type="image/x-icon" />
-    <link
-      rel="icon"
-      href="./src/assets/img/flaticon-hippo-32.ico"
-      sizes="32x32"
-      type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hippo</title>
+    <link rel="stylesheet" href="./src/welcome.css" />
+    <link rel="prefetch" href="./game.html" />
+    <link rel="prefetch" as="script" href="./src/main.js" />
+    <link rel="prefetch" as="styles" href="./src/style.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="score">
-        <h2>Очки 0</h2>
+    <div class="welcome-container">
+      <img
+        src="./src/assets/img/feed_hippo_optimized.png"
+        alt="logo-greeting" />
+      <div class="greeting">
+        <p>What food can / can't hippos eat?</p>
+        <form class="start-game-form">
+          <label for="name">Enter your name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="form-input" />
+          <button type="submit" class="btn-start">START</button>
+        </form>
       </div>
-      <div class="settings">
-        <button type="button" class="buttonLang" value="ru">
-          <span class="language" value="ru">Ru</span>
-        </button>
-        <div class="audio">
-          <button class="volumeBtn volumeYes">
-            <img src="./src/assets/svg/volume.svg" alt="volume" />
-          </button>
-          <button class="volumeBtn volumeNo buttonHide">
-            <img src="./src/assets/svg/volumeNo.svg" alt="volumeNo" />
-          </button>
-        </div>
-      </div>
-    </header>
-    <main>
-      <div class="firefly-container"></div>
-      <ul class="food"></ul>
-      <div class="busket">
-        <img src="./src/assets/img/hippo-hi.png" alt="hippo" class="hippo" />
-        <img
-          src="./src/assets/img/hippo-neitral.png"
-          alt="hippo"
-          class="hippo hippoNeitral" />
-        <img
-          src="./src/assets/img/hippo-no.png"
-          alt="hippo"
-          class="hippo hippoNo" />
-        <img
-          src="./src/assets/img/hippo-yes.png"
-          alt="hippo "
-          class="hippo hippoYes" />
-      </div>
-      <div class="endOfGameBackground"></div>
-      <section class="endOfGame">
-        <button class="btnClose">
-          <img src="./src/assets/svg/btn-close.svg" alt="close-icon" />
-        </button>
-        <div class="congratulationWrap">
-          <h2 class="congratulation">Bravo!</h2>
-          <h2 class="congratulation">The hippopotamus is full, thank you!</h2>
-          <h2 class="congratulation">You scored 110 points.</h2>
-        </div>
-        <div class="congratulationWrapRu">
-          <h2 class="congratulation">Браво!</h2>
-          <h2 class="congratulation">Бегемот сыт, спасибо тебе!</h2>
-          <h2 class="congratulation">Ты заработал 110 очков.</h2>
-        </div>
-        <img
-          src="./src/assets/img/hippo-eat.png"
-          alt="hippoHappyEnd"
-          class="hippoEndOfGame" />
-        <div class="listOfAllowedFood">
-          <h2 class="listAllowedFood">The list of allowed foods</h2>
-          <ul>
-            <li><h3>Капуста - Cabbage</h3></li>
-            <li><h3>Свёкла - Beets</h3></li>
-            <li><h3>Тыква -Pumpkin</h3></li>
-            <li><h3>Брокколи - Broccoli</h3></li>
-            <li><h3>Трава - Grass</h3></li>
-            <li><h3>Сено - Hay</h3></li>
-            <li><h3>Листья - Leaves</h3></li>
-            <li><h3>Огурцы - Cucumbers</h3></li>
-            <li class="liShift"><h3>Морковь - Carrots</h3></li>
-            <li class="liShift"><h3>Водяные растения - Aquatic plants</h3></li>
-            <li class="liShift">
-              <h3>
-                Фрукты (яблоки, арбузы, бананы) - Fruits (apples, watermelons,
-                bananas)
-              </h3>
-            </li>
-          </ul>
-        </div>
-        <div class="controlPanel">
-          <button
-            class="controlPanelBtn controlPanelShowList controlPanelShowListEn buttonHide">
-            Show the list of allowed foods
-          </button>
-          <button
-            class="controlPanelBtn controlPanelShowList controlPanelShowListRu">
-            Показать список разрешенной еды
-          </button>
-          <button
-            class="controlPanelBtn controlPanelplayAgain controlPanelplayAgainEn buttonHide">
-            Play again
-          </button>
-          <button
-            class="controlPanelBtn controlPanelplayAgain controlPanelplayAgainRu">
-            Играть еще
-          </button>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <div class="contactGithub">
-        <a href="https://github.com/zena7" target="_blank"
-          ><img
-            src="./src/assets/svg/github.svg"
-            alt="githubIcon"
-            class="gitIcon"
-        /></a>
-      </div>
-    </footer>
-    <script type="module" src="./src/main.js"></script>
+    </div>
+    <script type="module" src="./src/welcome.js"></script>
   </body>
 </html>
