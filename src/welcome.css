@@ -6,7 +6,7 @@ html {
   font-size: 16px;
 }
 
-body {
+.welcome-page {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -20,7 +20,7 @@ body {
   transition: opacity 1s ease-in-out, background-color 1.1s ease-in-out; /* Плавный переход */
 }
 
-body.fade-out {
+.fade-out {
   opacity: 0; /* Плавное исчезновение */
   background-color: #b4b5b62b;
 }
@@ -39,7 +39,7 @@ p {
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  margin-top: 5vh;
+  padding-top: 5vh;
 }
 
 .greeting {
@@ -52,7 +52,7 @@ p {
   letter-spacing: 0.045rem;
 }
 
-img {
+.welcome-page img {
   display: inline-block;
   width: 45%;
   aspect-ratio: 2.2/1;

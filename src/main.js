@@ -1,5 +1,5 @@
-import "normalize.css";
-import "./style.css";
+// import "normalize.css";
+// import "./style.css";
 
 import { allowedFoods, allowedFoodsEng } from "./data";
 import {
@@ -19,6 +19,16 @@ const list = getElemBySelector(".food");
 const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
+
+console.log("MAIN.js is connected");
+window.addEventListener("load", () => {
+  console.log("main js loaded");
+  // setTimeout(() => {
+  //   document.body.classList.add("loaded");
+  // }, 1050);
+  document.querySelector(".game-page").classList.add("loaded");
+  console.log("Page is loaded");
+});
 
 const score = getElemBySelector(".score").firstElementChild;
 export const setScore = ({ lang = "Ru", value = 0, reset = false }) => {
@@ -272,11 +282,3 @@ console.log(
   "User name is",
   window.localStorage.getItem("userName") ?? "unknown"
 );
-
-window.addEventListener("load", () => {
-  // setTimeout(() => {
-  //   document.body.classList.add("loaded");
-  // }, 1050);
-  document.body.classList.add("loaded");
-  console.log("Page is loaded");
-});
