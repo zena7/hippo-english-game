@@ -566,7 +566,7 @@ button:hover {
     font-size: 22px;
   }
 
-  body {
+  .game-page {
     background-image: url("./assets/img/background_1920x1080.webp");
   }
 
@@ -582,7 +582,7 @@ button:hover {
     font-size: 26px;
   }
 
-  body {
+  .game-page {
     background-image: url("./assets/img/background_2560x1080.webp");
   }
 
@@ -621,7 +621,7 @@ button:hover {
     font-size: 25px;
   }
 
-  body {
+  .game-page {
     background-image: url("./assets/img/background_3440x1440.webp");
   }
 }
