@@ -13,6 +13,7 @@ startForm.addEventListener("submit", async (event) => {
   }, 1200);
 });
 
+console.log("В деплое отразились новые изменения");
 // import("./main.js").then(() => {
 //   console.log("Game logic preloaded");
 // });
