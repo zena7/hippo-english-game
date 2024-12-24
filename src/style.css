@@ -289,6 +289,7 @@ button:hover {
 
 .endOfGame {
   display: none;
+  display: block;
   position: absolute;
   width: 100%;
   height: 105%;
@@ -533,7 +534,7 @@ button:hover {
 
 .contactGithub {
   position: relative;
-  height: 90%;
+  height: 70%;
   aspect-ratio: 1/1;
   border: 2px solid #213547;
   opacity: 0.8;
@@ -561,6 +562,13 @@ button:hover {
     hue-rotate(168deg) brightness(99%) contrast(87%);
 }
 
+@media (min-height: 1024px) or (min-width: 1720px) {
+  .game-page {
+    background-image: url("./assets/img/background_1920x1080.webp");
+    background-size: cover;
+  }
+}
+
 @media (min-width: 1720px) and (min-height: 1024px) {
   html {
     font-size: 22px;
@@ -568,6 +576,7 @@ button:hover {
 
   .game-page {
     background-image: url("./assets/img/background_1920x1080.webp");
+    background-size: cover;
   }
 
   .header,
@@ -577,33 +586,9 @@ button:hover {
   }
 }
 
-@media (min-width: 1920px) and (max-width: 2560px) {
-  html {
-    font-size: 26px;
-  }
-
-  .game-page {
-    background-image: url("./assets/img/background_2560x1080.webp");
-  }
-
-  .settings {
-    height: 80%;
-  }
-
-  .congratulationWrap,
-  .congratulationWrapRu {
-    padding-top: 3%;
-  }
-
-  .active ul {
-    padding-top: calc(0.4rem + 1vh);
-    margin-bottom: calc(0.2rem + 1vh);
-  }
-}
-
-@media (min-width: 1441px) {
+@media (min-width: 1440px) {
   .hippoEndOfGame {
-    margin-top: 2%;
+    margin-top: 3%;
   }
 
   .active {
@@ -614,6 +599,43 @@ button:hover {
     row-gap: 0.6rem;
     margin-bottom: calc(0.2rem + 10vh);
   }
+
+  .controlPanel {
+    top: 2vh;
+  }
+}
+
+@media (min-width: 1920px) and (max-width: 2560px) {
+  html {
+    font-size: 26px;
+  }
+
+  .game-page {
+    background-image: url("./assets/img/background_2560x1080.webp");
+    background-size: cover;
+  }
+
+  .settings {
+    height: 80%;
+  }
+
+  .congratulationWrap,
+  .congratulationWrapRu {
+    padding-top: 4%;
+  }
+
+  .active {
+    padding-top: 3%;
+  }
+
+  .active ul {
+    padding-top: calc(0.4rem + 1vh);
+    margin-bottom: calc(0.2rem + 1vh);
+  }
+
+  .hippoEndOfGame {
+    width: calc(30% + 6vh);
+  }
 }
 
 @media (min-width: 2560px) and (max-width: 4000px) {
@@ -623,6 +645,7 @@ button:hover {
 
   .game-page {
     background-image: url("./assets/img/background_3440x1440.webp");
+    background-size: cover;
   }
 }
 
@@ -644,6 +667,13 @@ button:hover {
   }
 }
 
+@media (max-height: 730px) {
+  .hippoEndOfGame {
+    margin-top: 0;
+    width: 25%;
+  }
+}
+
 @media (max-width: 767px) and (min-width: 480px) {
   main {
     width: 88%;
@@ -658,7 +688,7 @@ button:hover {
   }
 }
 
-@media (max-width: 1250px) and (min-width: 920px) {
+@media (min-width: 920px) and (max-width: 1250px) {
   .hippoEndOfGame {
     width: 48%;
   }
@@ -701,7 +731,7 @@ button:hover {
   }
 }
 
-@media (max-height: 694px) {
+@media (max-height: 730px) {
   .settings {
     height: 86%;
   }
@@ -715,15 +745,18 @@ button:hover {
     padding-top: 2%;
   }
 
-  .hippoEndOfGame {
-    width: calc(30% + 4vh);
-  }
-
   .controlPanel {
-    top: calc(-1% - 1vh);
+    top: calc(-5% - 1vh);
   }
 
   .controlPanel button {
     padding: 1% 2%;
+  }
+}
+
+@media (min-width: 2561px) and (min-height: 1460px) {
+  main {
+    width: 70%;
+    max-width: 2000px;
   }
 }
