@@ -15,8 +15,4 @@ function turnSound() {
   }
 }
 
-// export function getSoundState() {
-//   return isThereSound;
-// }
-
 export { turnSound };

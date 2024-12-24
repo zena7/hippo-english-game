@@ -17,7 +17,7 @@ html {
   font-weight: 400;
   color: rgba(255, 255, 255, 0.97);
   text-align: left;
-  transition: opacity 1s ease-in-out, background-color 1.1s ease-in-out; /* Плавный переход */
+  transition: opacity 1.4s ease-in-out, background-color 1.1s ease-in-out; /* Плавный переход */
 }
 
 .fade-out {
@@ -59,7 +59,6 @@ p {
   display: inline-block;
   width: 49%;
   height: auto;
-  /* aspect-ratio: 2.2/1; */
   margin-bottom: 1vh;
 }
 
@@ -123,7 +122,6 @@ p {
 
   .welcome-page img {
     width: 42%;
-    /* margin-bottom: 2vh; */
   }
 
   .greeting {
@@ -139,7 +137,6 @@ p {
 
   .welcome-page img {
     width: 38%;
-    /* margin-bottom: 2vh; */
   }
 
   .greeting {
@@ -157,8 +154,6 @@ p {
 @media (max-width: 1200px) {
   .welcome-page img {
     width: 48%;
-
-    /* margin-bottom: 2vh; */
   }
 
   .greeting {
@@ -169,8 +164,6 @@ p {
 @media (max-height: 660px) {
   .welcome-page img {
     width: 41%;
-
-    /* margin-bottom: 2vh; */
   }
 
   .greeting {

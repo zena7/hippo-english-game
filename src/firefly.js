@@ -3,7 +3,6 @@ import { getElemBySelector } from "./domUtils";
 //огоньки
 
 const container = getElemBySelector(".firefly-container");
-// let randomTime = null;
 const createFirefly = () => {
   const maxInterval = 1000;
   const minInterval = 300;
@@ -23,7 +22,7 @@ const createFirefly = () => {
 
   setTimeout(() => {
     firefly.remove();
-  }, 5000);
+  }, 6000);
 
   const randomTime = Math.ceil(
     Math.random() * (maxInterval - minInterval) + minInterval
@@ -33,13 +32,3 @@ const createFirefly = () => {
 };
 
 export { createFirefly };
-
-// // Создаём несколько огоньков
-// setInterval(() => {
-//   createFirefly();
-// }, 500);
-
-// let timerId = setTimeout(() => {
-//   createFirefly();
-//   timerId = setTimeout(createFirefly(), 250);
-// }, 350);
