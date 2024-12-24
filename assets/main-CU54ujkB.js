@@ -20,14 +20,8 @@ const hippo = document.querySelectorAll(".hippo")[0];
 const hippoYes = getElemBySelector(".hippoYes");
 const hippoNo = getElemBySelector(".hippoNo");
 
-console.log("MAIN.js is connected");
 window.addEventListener("load", () => {
-  console.log("main js loaded");
-  // setTimeout(() => {
-  //   document.body.classList.add("loaded");
-  // }, 1050);
   document.querySelector(".game-page").classList.add("loaded");
-  console.log("Page is loaded");
 });
 
 const score = getElemBySelector(".score").firstElementChild;
@@ -116,7 +110,6 @@ function handleMouseDown(e) {
       e.target.parentNode.classList.toggle("liView");
       target.classList.add("liView");
       e.target.style.visibility = "hidden";
-      // e.target.style.border = "1px solid purple";
       target.style.left = `${e.pageX - offsetX}px`; // Используем смещение для начальной позиции
       target.style.top = `${e.pageY - offsetY}px`;
       document.body.append(target);
@@ -138,8 +131,6 @@ function handleMove(e) {
   e.preventDefault();
 
   if (foodMouseDown) {
-    // target.style.left = `${e.pageX - target.offsetWidth / 2}px`;
-    // target.style.top = `${e.pageY - target.offsetHeight / 2}px`;
     const offsetX = parseFloat(target.dataset.offsetX); // Получаем сохранённое смещение
     const offsetY = parseFloat(target.dataset.offsetY);
     target.style.left = `${e.pageX - offsetX}px`;
@@ -277,8 +268,3 @@ window.addEventListener("load", async () => {
   const { createFirefly } = await import("./firefly.js");
   createFirefly();
 });
-
-console.log(
-  "User name is",
-  window.localStorage.getItem("userName") ?? "unknown"
-);
