@@ -1,4 +1,4 @@
-[![Author](https://img.shields.io/badge/Author-zena7-blue)](https://github.com/zena7) ![Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red) ![License](https://img.shields.io/github/license/username/repository)
+[![Author](https://img.shields.io/badge/Author-zena7-blue)](https://github.com/zena7) ![Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-pink) ![License](https://img.shields.io/github/license/zena7/hippo-english-game)
 
 # Feed hippo
 
